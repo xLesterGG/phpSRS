@@ -29,8 +29,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		})
     
         .state('SalesAdd', {
-			url: '/Sales',
+			url: '/SalesAdd',
 			templateUrl: "SalesAdd.html"
+		
+		})
+        
+        .state('InvenAdd', {
+			url: '/InventoryAdd',
+			templateUrl: "InvenAdd.html"
 		
 		})
     
