@@ -1,0 +1,55 @@
+
+            <!--table-->
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>ItemName</th>
+                    <th>UnitsAvailable</th>
+                    <th>ItemDescription</th>
+                    <th>ItemPrice</th>
+                    <th>UnitsOrder</th>
+                </tr>
+            </table>
+            
+            <!--form-->
+            
+            <h1>Add Inventory</h1>
+            <form name="myForm">
+                <table class="table" padding="5">
+                    <tr>
+                        <td> <label for="itemName"> Item name: </label> </td>
+                        <td> <input type="text" id="itemName" class="form-control" data-ng-required="required"> </td>
+                        <td> <label for="itemUnitOrder">Quantity: </label> </td>
+                        <td> <input type="number" id="itemUnitOrder" class="form-control" data-ng-required="required"></td>
+                    </tr>
+
+                    <tr>
+                        <td> <label for="manuName">Manufacturer: </label> </td>
+                        <td> <input type="text" id="manuName" class="form-control" data-ng-required="required"> </td>
+                        <td> <label for="manuContact">Manufacturer Contact: </label> </td>
+                        <td> <input type="number" id="manuContact" class="form-control" data-ng-required="required"> </td>
+                    </tr>
+                    
+                    <tr>
+                        <td> <label for="itemDesc">Item Description: </label> </td>
+                        <td> <input type="text" id="itemDesc" class="form-control" data-ng-required="required"> </td>
+                        <td> <label for="itemPrice">Item Price: </label> </td>
+                        <td> <input type="number" min="0.01" step="0.01" id="itemPrice" class="form-control" data-ng-required="required"> </td>
+                    </tr>
+
+                    <tr>
+                        <td> <label for="userID">UserID: </label> </td>
+                        <td> <input type="text" id="userID" disabled="disabled" class="form-control" data-ng-required="required"> </td>
+                        <td> <label for="invenAddDate">Date: </label> </td>
+                        <td> <input type="date" id="invenAddDate" class="form-control" data-ng-required="required"> </td>
+                    </tr>
+
+                    <tr> <td><button type="submit">Submit</button></td></tr>
+                </table>
+                
+            </form>
+        
+        
+            <footer class="footer">
+                <p> For any inquiries regarding anything, please contact <a href="mailto:4330250@students.swinburne.edu.my">Abner</a></p>
+                <p class="copyright">&#169; SWE30010 Development Project 2 Semester 2 2016</p>		
+            </footer>
