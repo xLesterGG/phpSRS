@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp" lang="en" >
+<head>
+	<title>Template that uses Bootstrap </title>
+	<meta name="viewport" content="width=device width,initialscale=1.0"/>
+	<!--Boostrap-->
+	<link href="css/bootstrap.min.css" rel="stylesheet"/>
+	<!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+	<!--WARNING: Respond.js doesn't work if you view the page via file://-->
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+	
+	</head>
+	
+	<body>
+		<div class="container" data-ng-controller="myCtrl">  
+            <!--navbar-->
+			<div class="row">               
+				<div class="col-md-12 col-xs-12" id="main">
+                    
+					<nav class="navbar navbar-default">
+						<div class="container-fluid">
+							 <div class="navbar-header">
+                                 <a class="navbar-brand" data-ui-sref="/">PHP-SRS</a>
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavBar">								
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>								
+							</div>
+
+							<div class="collapse navbar-collapse" id="myNavBar">
+								<ul class="nav navbar-nav" id="menubar">
+
+
+									<li>
+										<a data-ui-sref="/">Home</a>
+									</li>		
+								
+									
+									<li>
+										<a data-ui-sref="test1">Testing page 2</a>
+									</li>
+                                    
+                                    <li>
+										<a href="inven.html">Inventory Management</a>
+									</li>
+                                    
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Do it yourself
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Page 1-1</a></li>
+                                            <li><a href="#">Page 1-2</a></li>
+                                            <li><a href="#">Page 1-3</a></li> 
+                                        </ul>
+                                   </li>
+									
+								</ul>
+
+								<ul class="nav navbar-nav navbar-right" id="menubar1">
+								  <li><a data-ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+									
+									<li  data-ng-if="isadmin==1"><a data-ng-click="logout()" data-ui-sref="/"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+									
+									
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+            
+            <div class="row">
+                <div class="col-md-12 col-xs-12 maincontent">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" data-ng-click = "mode = 'add'">Add Stock</button>
+                        <button type="button" class="btn btn-default" data-ng-click = "mode = 'edit'">Edit Stock</button><br/><br/><br/>
+                    </div>
+                    
+                    <div data-ng-if="mode == 'add'">
+                        <form name="invenAddForm" class="form-horizontal" novalidate
+                                  ="novalidate" >
+                        <fieldset>
+                        <legend>Insert New Stock:</legend>
+                        
+                        <div class="form-group">
+                            <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
+                            <div class="col-md-3 col-sm-3 col-xs-8">
+                                <input type="text" class="form-control" data-ng-model="item" id="item"/>    
+                            </div>
+                        </div>
+                            
+                        <div class="form-group">     
+                            <label for="itemAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
+                            <div class="col-md-3 col-sm-3 col-xs-8">
+                                <input type="number" class="form-control" data-ng-model="itemAmount" id="itemAmount"/>    
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
+                                <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
+                            </div>
+                       </div> 
+
+                        </fieldset>       
+                        </form>
+                    </div>
+                    <div data-ng-if="mode == 'edit'">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th id="itemName" scope="col"  class="info">ItemName</th>
+                                    <th id="itemAmount" scope="col" class="info">ItemAmount</th>
+                                    <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
+                                    <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
+                                    <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+                                    <th id="edit" scope="col" class="info">Edit</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td data-ng-bind="" headers="itemName">1</td>
+                                    <td data-ng-bind="" headers="itemAmount">2</td>
+                                    <td data-ng-bind="" headers="itemDescrp">3</td>
+                                    <td data-ng-bind="" headers="itemPrice" >4</td>
+                                    <td data-ng-bind="" headers="UnitsOrder">5</td>
+                                    <td headers="edit"><button type="submit" data-ng-click="" class="btn">Edit</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+<!--            <data-ui-view></data-ui-view>-->
+			
+			
+		
+			
+			
+					
+			
+		<footer class="footer">
+			<p> For any inquiries regarding anything, please contact <a href="mailto:4329619@students.swinburne.edu.my">Lester	</a></p>
+			<p class="copyright">&#169; SWE30010 Development Project 2 Semester 2 2016</p>		
+		</footer>
+			
+			
+		</div>
+		
+		
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/angular.min.js"></script>
+		<script src="js/InventoryApp.js"></script>
+		<script src="js/angular-ui-router.js"></script>
+
+	</body>
+</html>
