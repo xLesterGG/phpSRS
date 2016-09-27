@@ -28,6 +28,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		
 		})
     
+        .state('SalesAdd', {
+			url: '/Sales',
+			templateUrl: "SalesAdd.html"
+		
+		})
+    
 		/*.state('addactivities', {
 			url: '/addactivities',
 			templateUrl: "addactivity.html"
