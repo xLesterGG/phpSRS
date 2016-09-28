@@ -1,12 +1,40 @@
         
 <div class="row">
     <div class="col-md-12 col-xs-12 maincontent">
+<!--
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" data-ng-click = "mode = 'add'">Add Stock</button>
-            <button type="button" class="btn btn-default" data-ng-click = "mode = 'edit'">Edit Stock</button><br/><br/><br/>
+            <button type="button" class="btn btn-default" data-ng-click = "invenMode = 'add'">Add Stock</button>
+            <button type="button" class="btn btn-default">Edit Stock</button><br/><br/><br/>
         </div>
+-->
 
-        <div data-ng-if="mode == 'add'">
+        <div data-ng-if="invenMode == 'add'">
+            <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th id="itemName" scope="col"  class="info">ItemName</th>
+                        <th id="itemAmount" scope="col" class="info">ItemAmount</th>
+                        <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
+                        <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
+                        <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+                        <th id="edit" scope="col" class="info">Edit</th>
+                        <th id="del" scope="col" class="info">Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td data-ng-bind="" headers="itemName">1</td>
+                        <td data-ng-bind="" headers="itemAmount">2</td>
+                        <td data-ng-bind="" headers="itemDescrp">3</td>
+                        <td data-ng-bind="" headers="itemPrice" >4</td>
+                        <td data-ng-bind="" headers="UnitsOrder">5</td>
+                        <td headers="edit"><button type="submit" data-ng-click="chngInvenMode()" class="btn">Edit</button></td>
+                        <td headers="del"><button type="submit" data-ng-click="" class="btn">Del</button></td>
+                    </tr>
+                    </tbody>
+            </table>
+            
             <form name="invenAddForm" class="form-horizontal" novalidate
                       ="novalidate" >
             <fieldset>
@@ -20,9 +48,9 @@
             </div>
 
             <div class="form-group">     
-                <label for="itemAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
+                <label for="iAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="itemAmount" id="itemAmount"/>    
+                    <input type="number" class="form-control" data-ng-model="itemAmount" id="iAmount"/>    
                 </div>
             </div>
 
@@ -35,32 +63,55 @@
             </fieldset>       
             </form>
         </div>
-        <div data-ng-if="mode == 'edit'">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered table-condensed">
-                    <thead>
-                    <tr>
-                        <th id="itemName" scope="col"  class="info">ItemName</th>
-                        <th id="itemAmount" scope="col" class="info">ItemAmount</th>
-                        <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
-                        <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
-                        <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
-                        <th id="edit" scope="col" class="info">Edit</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td data-ng-bind="" headers="itemName">1</td>
-                        <td data-ng-bind="" headers="itemAmount">2</td>
-                        <td data-ng-bind="" headers="itemDescrp">3</td>
-                        <td data-ng-bind="" headers="itemPrice" >4</td>
-                        <td data-ng-bind="" headers="UnitsOrder">5</td>
-                        <td headers="edit"><button type="submit" data-ng-click="" class="btn">Edit</button></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div data-ng-if="invenMode == 'edit'">
+            <form name="invenEditForm" class="form-horizontal" novalidate
+                      ="novalidate" >
+            <fieldset>
+            <legend>Edit Stock:</legend>
+            
+            <div class="form-group">     
+                <label for="iName" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="" id="iName" readonly/>    
+                </div>
             </div>
+            
+            <div class="form-group">     
+                <label for="iDescrp" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Description: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="" id="iDescrp" />    
+                </div>
+            </div>
+                
+            <div class="form-group">     
+                <label for="itemEditAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="number" class="form-control" data-ng-model="itemEditAmount" id="itemEditAmount"/>    
+                </div>
+            </div>
+            
+            <div class="form-group">     
+                <label for="itemEditPrice" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Price: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="number" class="form-control" data-ng-model="itemEditPrice" id="itemEditPrice"/>    
+                </div>
+            </div>
+                
+            <div class="form-group">     
+                <label for="itemEditOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> UnitsOrder: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="number" class="form-control" data-ng-model="itemEditOrder" id="itemEditOrder"/>    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
+                    <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
+                </div>
+           </div> 
+
+            </fieldset>       
+            </form>
         </div>
     </div>
 </div>            

@@ -5,8 +5,16 @@ var app = angular.module("myApp", ['ui.router']);
 
 app.controller("myCtrl", function ($scope, $http) {
 	'use strict';
-	$scope.mode = 'add';
+	$scope.invenMode = 'add';
+    $scope.salesMode = 'add';
 	
+    $scope.chngInvenMode  = function () {
+        $scope.invenMode = 'edit';
+    };
+    
+    $scope.chngSalesMode  = function () {
+        $scope.salesMode = 'edit';
+    };
 });
 
 
@@ -22,21 +30,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: "test.html"
 		
 		})        
-        .state('SalesAdd', {
-			url: '/SalesAdd',
-			templateUrl: "SalesAdd.html"
-		
-		})
         
-        .state('InvenAdd', {
-			url: '/InventoryAdd',
-			templateUrl: "InvenAdd.html"
-		
-		})
-    
-        .state('SalesEdit', {
-			url: '/SalesEdit',
-			templateUrl: "SalesEdit.html"
+        .state('SalesMan', {
+			url: '/SalesManagement',
+			templateUrl: "sales.html"
 		
 		})	
     

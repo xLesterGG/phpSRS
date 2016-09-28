@@ -1,0 +1,119 @@
+        
+<div class="row">
+    <div class="col-md-12 col-xs-12 maincontent">
+<!--
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" data-ng-click = "mode = 'add'">Add Sales</button>
+            <button type="button" class="btn btn-default" data-ng-click = "mode = 'edit'">Edit Sales</button><br/><br/><br/>
+        </div>
+-->
+
+        <div data-ng-if="salesMode == 'add'">
+            <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th id="itemName" scope="col"  class="info">ItemName</th>
+                        <th id="itemUnitOrder" scope="col" class="info">ItemUnitOrder</th>
+                        <th id="clientName" scope="col" class="info">ClientName</th>
+                        <th id="clientContact" scope="col"  class="info">ClientContact</th>
+                        <th id="userID" scope="col"  class="info">UserID</th>
+                        <th id="salesDate" scope="col" class="info">SalesDate</th>
+                        <th id="edit" scope="col" class="info">Edit</th>
+                        <th id="del" scope="col" class="info">Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td data-ng-bind="" headers="itemName">1</td>
+                        <td data-ng-bind="" headers="itemUnitOrder">2</td>
+                        <td data-ng-bind="" headers="clientName">3</td>
+                        <td data-ng-bind="" headers="clientContact" >4</td>
+                        <td data-ng-bind="" headers="userID">5</td>
+                        <td data-ng-bind="" headers="salesDate">5</td>
+                        <td headers="edit"><button type="submit" data-ng-click="chngSalesMode()" class="btn">Edit</button></td>
+                        <td headers="del"><button type="submit" data-ng-click="" class="btn">Del</button></td>
+                    </tr>
+                    </tbody>
+            </table>
+            
+            <form name="salesAddForm" class="form-horizontal" novalidate
+                      ="novalidate" >
+            <fieldset>
+            <legend>Insert New Sales:</legend>
+
+            <div class="form-group">
+                <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="item" id="item"/>    
+                </div>
+            </div>
+
+            <div class="form-group">     
+                <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="number" class="form-control" data-ng-model="itemUnitOrder" id="UnitOrder"/>    
+                </div>
+            </div>
+                
+            <div class="form-group">
+                <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="clientName" id="cName"/>    
+                </div>
+            </div>
+                
+            <div class="form-group">
+                <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="clientContact" id="cContact"/>    
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="sDate" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="salesDate" id="sDate"/>    
+                </div>
+            </div>        
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
+                    <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
+                </div>
+           </div> 
+
+            </fieldset>       
+            </form>
+        </div>
+        <div data-ng-if="salesMode == 'edit'">
+            <form name="salesEditForm" class="form-horizontal" novalidate
+                      ="novalidate" >
+            <fieldset>
+            <legend>Edit Sales:</legend>
+            
+            <div class="form-group">
+                <label for="itemE" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="text" class="form-control" data-ng-model="item" id="itemE" readonly/>    
+                </div>
+            </div>
+
+            <div class="form-group">     
+                <label for="itemEditOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <input type="number" class="form-control" data-ng-model="itemUnitOrder" id="itemEditOrder"/>    
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
+                    <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
+                </div>
+           </div> 
+
+            </fieldset>       
+            </form>
+        </div>
+    </div>
+</div>            
