@@ -90,6 +90,37 @@ app.controller("salesCtrl",function($scope){
     
 });
 
+app.controller("invenCtrl",function($scope){
+    'use strict';
+    
+     $scope.inven= [
+        {itemName:"Pills", "itemAmount":3, "itemDescription":"A powerful pill", "itemPrice":10.00,"UnitsOrder":1}
+    ];
+    
+
+    
+   
+    $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
+
+       var input = {itemName: itemName,
+                 itemAmount:itemAmount,
+                 itemDescription:itemDescription,
+                 itemPrice:itemPrice,
+                 UnitsOrder:UnitsOrder,
+                 };       
+
+        $scope.inven.push(input);      
+
+
+        $scope.itemName ="";
+       
+   };
+    
+    
+    
+    
+});
+
 
 //routing for ui-router
 app.config(function ($stateProvider, $urlRouterProvider) {
