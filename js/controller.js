@@ -17,6 +17,38 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.salesMode = 'edit';
     };
     
+    $scope.adminCheck = function(adminID,adminPW){
+    
+    var url = "loginCheck.php";
+    var data = $.param({adminID:adminID, adminPW:adminPW});
+    var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+    };
+    
+    $http.post(url,data,config)
+    .then(
+        function(response){
+            if (response.data)
+            {
+                $scope.admin = response.data;
+                console.log(response.data);
+                if($scope.admin == 'Invalid Admin ID or Password')
+                    $scope.adminProceed = false;
+                else
+                    {
+                    $scope.adminProceed = true;
+                    window.location.href = "home.html";
+
+                    }
+               // console.log($scope.adminProceed);
+            }
+        }, function (response)
+        {
+            
+        });
+};
    
    
 	
