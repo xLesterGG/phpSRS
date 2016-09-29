@@ -1,0 +1,32 @@
+<?php 
+CREATE TABLE UserAccounts
+{
+	UserID INT UNSIGNED AUTO_INCREMENT,
+	UserPassword VARCHAR(30) NOT NULL,
+	AccountType VARCHAR(15) NOT NULL,
+	PRIMARY KEY (UserID)
+};
+
+CREATE TABLE Sales
+{
+	SalesID INT UNSIGNED AUTO_INCREMENT,
+	ItemName VARCHAR(50) NOT NULL,
+	ItemUnitsOrder INT UNSIGNED,
+	ClientName VARCHAR(30) NOT NULL,
+	ClientContact VARCHAR(20) NOT NULL,
+	UserID INT UNSIGNED,
+	SalesDate DATE,
+	PRIMARY KEY (SalesID),
+	FOREIGN KEY (ItemName) REFERENCES Inventory (ItemName)
+};
+
+CREATE TABLE Inventory
+{
+	ItemName VARCHAR(50) NOT NULL,
+	UnitsAvailable INT UNSIGNED,
+	ItemDescription VARCHAR(100) NOT NULL,
+	ItemPrice DECIMAL(10,2),
+	UnitsOrder INT UNSIGNED,
+	PRIMARY KEY (ItemName)
+};
+?> 
