@@ -19,7 +19,7 @@ app.controller("myCtrl", function ($scope, $http) {
     
     $scope.adminCheck = function(adminID,adminPW){
     
-    var url = "loginCheck.php";
+    var url = "php/loginCheck.php";
     var data = $.param({adminID:adminID, adminPW:adminPW});
     var config = {
         headers:{
@@ -59,12 +59,10 @@ app.controller("myCtrl", function ($scope, $http) {
 app.controller("salesCtrl",function($scope){
     'use strict';
     
-     $scope.sales= [
+    $scope.sales= [
         {"sID":"1", itemName:"Pills", "itemUnit":"1", "clientName":"????", "clientContact":"123","uID":"1","sDate":"11-11-1111"}
     ];
-    
-
-    
+      
    
     $scope.addSales = function (itemName,itemUnit,clientName,clientContact,sDate) {
         
@@ -85,36 +83,53 @@ app.controller("salesCtrl",function($scope){
        
    };
     
-    
-    
-    
 });
 
-app.controller("invenCtrl",function($scope){
+app.controller("invenCtrl",function($scope,$http){
     'use strict';
     
-     $scope.inven= [
+    $scope.inven= [
         {itemName:"Pills", "itemAmount":3, "itemDescription":"A powerful pill", "itemPrice":10.00,"UnitsOrder":1}
     ];
     
-
-    
-   
     $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
-
-       var input = {itemName: itemName,
-                 itemAmount:itemAmount,
-                 itemDescription:itemDescription,
-                 itemPrice:itemPrice,
-                 UnitsOrder:UnitsOrder,
-                 };       
-
-        $scope.inven.push(input);      
-
-
-        $scope.itemName ="";
-       
-   };
+        var url = "php/invenAdd.php";
+        var data = $.param({itemName:itemName, itemAmount:itemAmount,itemDescription:itemDescription,itemPrice:itemPrice,UnitsOrder:UnitsOrder});
+        var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+        };
+    
+        $http.post(url,data,config)
+        .then(
+        function(response){
+            if (response.data)
+            {
+                $scope.add = response.data;
+                console.log(response.data);
+            }
+        }, function (response)
+        {
+            
+        });
+    };
+   
+//    $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
+//
+//       var input = {itemName: itemName,
+//                 itemAmount:itemAmount,
+//                 itemDescription:itemDescription,
+//                 itemPrice:itemPrice,
+//                 UnitsOrder:UnitsOrder,
+//                 };       
+//
+//        $scope.inven.push(input);      
+//
+//
+//        $scope.itemName ="";
+//       
+//   };
     
     
     
