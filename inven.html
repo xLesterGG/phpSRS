@@ -23,20 +23,13 @@
                     </thead>
 
                     <tbody>
-                    <tr data-ng-repeat="inven in inven">
+                    <tr data-ng-repeat="inven in inventoryData">
                         
-                            <td>{{inven.itemName}}</td>
-                            <td>{{inven.itemAmount}}</td>	
-                            <td>{{inven.itemDescription}}</td>
-                            <td>{{inven.itemPrice}}</td>
-                            <td>{{inven.UnitsOrder}}</td>
-<!--
-                        <td data-ng-bind="" headers="itemName">1</td>
-                        <td data-ng-bind="" headers="itemAmount">2</td>
-                        <td data-ng-bind="" headers="itemDescrp">3</td>
-                        <td data-ng-bind="" headers="itemPrice" >4</td>
-                        <td data-ng-bind="" headers="UnitsOrder">5</td>
--->
+                        <td data-ng-bind="inven.ItemName" headers="itemName">1</td>
+                        <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
+                        <td data-ng-bind="inven.ItemDescription" headers="itemDescrp">3</td>
+                        <td data-ng-bind="inven.ItemPrice" headers="itemPrice" >4</td>
+                        <td data-ng-bind="inven.UnitsOrder" headers="UnitsOrder">5</td>
                         <td headers="edit"><button type="submit" data-ng-click="chngInvenMode()" class="btn">Edit</button></td>
                         <td headers="del"><button type="submit" data-ng-click="" class="btn">Del</button></td>
                     </tr>
