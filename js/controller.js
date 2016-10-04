@@ -17,6 +17,10 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.salesMode = 'edit';
     };
     
+    $scope.addMode  = function () {
+        $scope.salesMode = 'add';
+    };
+    
     $scope.adminCheck = function(adminID,adminPW){
     
     var url = "php/loginCheck.php";
@@ -77,12 +81,17 @@ app.controller("salesCtrl",function($scope){
                  sDate:sDate };       
 
         $scope.sales.push(input);      
-
+    
+    
 
         $scope.itemName ="";
        
    };
     
+   $scope.removeSales = function ($index) {
+        $scope.sales.splice($index, 1);
+   };
+   
 });
 
 app.controller("invenCtrl",function($scope,$http){

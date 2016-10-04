@@ -42,7 +42,7 @@
                             <td data-ng-bind="" headers="userID">5</td>
                             <td data-ng-bind="" headers="salesDate">5</td>-->
                             <td headers="edit"><button type="submit" data-ng-click="chngSalesMode()" class="btn">Edit</button></td>
-                            <td headers="del"><button type="submit" data-ng-click="" class="btn">Del</button></td>
+                            <td headers="del"><button type="submit" data-ng-click="removeSales($index)" class="btn">Del</button></td>
                         </tr>
                     </tbody>
             </table>
@@ -102,7 +102,7 @@
         </div>
         
         
-        
+        <!--sales edit-->
         <div data-ng-if="salesMode == 'edit'">
             <form name="salesEditForm" class="form-horizontal" novalidate
                       ="novalidate" >
@@ -112,7 +112,7 @@
             <div class="form-group">
                 <label for="itemE" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="text" class="form-control" data-ng-model="item" id="itemE" readonly/>    
+                    <input type="text" class="form-control" data-ng-model="item" id="itemE" value="{{sales.itemName}}" readonly/>    
                 </div>
             </div>
 
@@ -128,6 +128,8 @@
                     <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
                 </div>
            </div> 
+           <p><a data-ng-click="addMode()"> back 	&larr;</a></p>
+                {{sales.sID}}
 
             </fieldset>       
             </form>
