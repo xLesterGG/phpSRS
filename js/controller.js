@@ -85,12 +85,20 @@ app.controller("salesCtrl",function($scope){
     
 });
 
-app.controller("invenCtrl",function($scope,$http){
+app.controller("invenCtrl",function($scope,$http,$window){
     'use strict';
-    
-    $scope.inven= [
-        {itemName:"Pills", "itemAmount":3, "itemDescription":"A powerful pill", "itemPrice":10.00,"UnitsOrder":1}
-    ];
+    $scope.getInven = function(){
+        $http.get('php/phpapi.php/inventory')
+        .then (
+        function(response) {
+            $scope.inventoryData = response.data;
+            
+        },
+        function(response) {
+        // error handling routine
+        });    
+    }
+    $scope.getInven();
     
     $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
         var url = "php/invenAdd.php";
@@ -107,14 +115,18 @@ app.controller("invenCtrl",function($scope,$http){
             if (response.data)
             {
                 $scope.add = response.data;
-                console.log(response.data);
+                $scope.getInven();
             }
         }, function (response)
         {
             
         });
+        $window.location.reload();
     };
-   
+    
+//   $scope.inven= [
+//        {itemName:"Pills", "itemAmount":3, "itemDescription":"A powerful pill", "itemPrice":10.00,"UnitsOrder":1}
+//    ];
 //    $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
 //
 //       var input = {itemName: itemName,
