@@ -36,18 +36,17 @@
             $UpdateSql = "UPDATE inventory SET UnitsAvailable = " . $newItemAmount . " WHERE ItemName = '". $itemName ."';";
             $conn->query($UpdateSql);
             echo "Updated Sucessfully";
+            $conn->close();
         }   
-        else{
-            $sql = "INSERT INTO inventory(ItemName, UnitsAvailable, ItemDescription,ItemPrice,UnitsOrder) VALUES('". $itemName ."', " . $itemAmount . ", '". $itemDescription ."', ". $itemPrice .",". $UnitsOrder .");";
-            
-            if($conn->query($sql)==true)
-            {
-                echo "Inserted Sucessfully";
-            }
-        }
+        
 	}
     
- 
+    $sql = "INSERT INTO inventory(ItemName, UnitsAvailable, ItemDescription,ItemPrice,UnitsOrder) VALUES('". $itemName ."', " . $itemAmount . ", '". $itemDescription ."', ". $itemPrice .",". $UnitsOrder .");";
+            
+    if($conn->query($sql)==true)
+    {
+        echo "Inserted Sucessfully";
+    }
 	$conn->close();
     
 
