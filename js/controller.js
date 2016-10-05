@@ -52,27 +52,92 @@ app.controller("myCtrl", function ($scope, $http) {
         {
             
         });
-};
-   
+};  
    
 	
     
     
 });
 
-app.controller("salesCtrl",function($scope){
+app.controller("salesCtrl",function($scope,$http,$window){
     'use strict';
     
-    $scope.sales= [
+   /* $scope.sales= [
         {"sID":"1", itemName:"Pills", "itemUnit":"1", "clientName":"????", "clientContact":"123","uID":"1","sDate":"11-11-1111"}
-    ];
+    ];*/
+
+    
+    $scope.getSales = function(){
+        $http.get('php/phpapi.php/sales')
+        .then (
+        function(response) {
+            $scope.salesData = response.data;
+            console.log(response.data);
+            $scope.currentID = $scope.salesData.length;
+
+            
+        },
+        function(response) {
+        // error handling routine
+        });    
+    }
+    $scope.getSales();
+    
+    
+    $scope.getInven = function(){
+        $http.get('php/phpapi.php/inventory')
+        .then (
+        function(response) {
+            $scope.inventoryData = response.data;
+            
+        },
+        function(response) {
+        // error handling routine
+        });    
+    }
+    $scope.getInven();
+    
+        //$scope.currentID = parseInt($scope.sales[$scope.sales.length-1].sID) + 1;
+  //  console.log(currentID);
       
    
     $scope.addSales = function (itemName,itemUnit,clientName,clientContact,sDate) {
-        
-    $scope.currentID = parseInt($scope.sales[$scope.sales.length-1].sID) + 1;
+       var url = "php/salesAdd.php"
+        console.log(itemName);
+                console.log(itemUnit);
 
-       var input = {"sID": $scope.currentID,
+
+        $scope.currentID+=1;
+        var data = $.param({
+			SalesID : $scope.currentID,
+			ItemName: itemName,
+			ItemUnitsOrder: itemUnit,
+			ClientName: clientName,
+			ClientContact: clientContact,
+            UserID:1,
+            SalesDate:sDate
+		});
+        
+        var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        
+        $http.post(url,data,config)
+        .then(
+        function(response){
+            if (response.data)
+            {
+                $scope.salesData = response.data;
+                console.log("kappa");
+            }
+        }, function (response)
+        {
+            
+        });
+        
+     /*  var input = {"sID": $scope.currentID,
                  itemName: itemName,
                  itemUnit:itemUnit,
                  clientName:clientName,
@@ -80,11 +145,11 @@ app.controller("salesCtrl",function($scope){
                  uID:"1",
                  sDate:sDate };       
 
-        $scope.sales.push(input);      
+        $scope.sales.push(input);      */
     
     
 
-        $scope.itemName ="";
+       // $window.location.reload();
        
    };
     

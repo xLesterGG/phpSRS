@@ -25,15 +25,15 @@
                     </thead>
 
                     <tbody>
-                        <tr data-ng-repeat="sales in sales">
+                        <tr data-ng-repeat="sales in salesData">
 
-                            <td>{{sales.sID}}</td>
-                            <td>{{sales.itemName}}</td>
-                            <td>{{sales.itemUnit}}</td>		
-                            <td>{{sales.clientName}}</td>
-                            <td>{{sales.clientContact}}</td>
-                            <td>{{sales.uID}}</td>
-                            <td>{{sales.sDate}}</td>
+                            <td>{{sales.SalesID}}</td>
+                            <td>{{sales.ItemName}}</td>
+                            <td>{{sales.ItemUnitsOrder}}</td>		
+                            <td>{{sales.ClientName}}</td>
+                            <td>{{sales.ClientContact}}</td>
+                            <td>{{sales.UserID}}</td>
+                            <td>{{sales.SalesDate}}</td>
 
                            <!-- <td data-ng-bind="" headers="itemName">1</td>
                             <td data-ng-bind="" headers="itemUnitOrder">2</td>
@@ -55,11 +55,17 @@
                       ="novalidate" data-ng-submit="addSales(itemName,itemUnit,clientName,clientContact,sDate)" >
                 <fieldset>
                 <legend>Insert New Sales:</legend>
+                    
+                    
+                    
 
                 <div class="form-group">
                     <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="itemName" id="item"/>    
+                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>  -->
+                        <select class="form-control" data-ng-model="itemName">
+                            <option data-ng-repeat="inven in inventoryData" value="{{inven.ItemName}}"  id="item">{{inven.ItemName}}</option>               
+                        </select>                        
                     </div>
                 </div>
 
@@ -87,7 +93,7 @@
                 <div class="form-group">
                     <label for="sDate" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="sDate" id="sDate"/>    
+                        <input type="date" class="form-control" data-ng-model="sDate" id="sDate"/>    
                     </div>
                 </div>        
 
