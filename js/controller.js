@@ -13,8 +13,9 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.invenMode = 'edit';
     };
     
-    $scope.chngSalesMode  = function () {
+    $scope.chngSalesMode  = function (id) {
         $scope.salesMode = 'edit';
+        $scope.sid = id;
     };
     
     $scope.addMode  = function () {
@@ -59,9 +60,11 @@ app.controller("myCtrl", function ($scope, $http) {
     
 });
 
-app.controller("salesCtrl",function($scope,$http,$window){
+app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
     'use strict';
-    
+    //$scope.sid = 0;
+    console.log($scope.sid);
+    console.log($stateParams.id);
    /* $scope.sales= [
         {"sID":"1", itemName:"Pills", "itemUnit":"1", "clientName":"????", "clientContact":"123","uID":"1","sDate":"11-11-1111"}
     ];*/
@@ -172,6 +175,43 @@ app.controller("salesCtrl",function($scope,$http,$window){
                          
        );
    };
+    
+  $scope.LoadData = function(iname,iorder,cname,ccontact){
+      $scope.itemName2=iname;
+      $scope.itemUnit2=parseInt(iorder);
+      $scope.clientName2=cname;
+      $scope.clientContact2=ccontact;
+  }
+  
+  $scope.editSales = function(){
+      var url = "php/salesEdit.php";
+      var data = $.param({
+          snm : $scope.itemName2,
+          iord : $scope.itemUnit2,
+          cnm : $scope.clientName2,
+          ccn : $scope.clientContact2,
+          sID : $scope.sid
+      });
+      console.log($scope.itemName2);
+      var config = {
+          headers : {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+          }
+      };
+      
+      $http.put(url, data, config)
+			.then(
+				function (response) {
+					$scope.msg2 = response.data;
+
+				},
+				function (response) {
+					$scope.msg2 = response.data;
+				}
+			);
+      
+  }   
+    
    
 });
 
