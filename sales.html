@@ -42,10 +42,11 @@
                             <td data-ng-bind="" headers="userID">5</td>
                             <td data-ng-bind="" headers="salesDate">5</td>-->
                             <td headers="edit"><button type="submit" data-ng-click="chngSalesMode()" class="btn">Edit</button></td>
-                            <td headers="del"><button type="submit" data-ng-click="removeSales($index)" class="btn">Del</button></td>
+                            <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
                         </tr>
                     </tbody>
             </table>
+            {{msg}}
             
             
             

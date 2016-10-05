@@ -153,8 +153,24 @@ app.controller("salesCtrl",function($scope,$http,$window){
        
    };
     
-   $scope.removeSales = function ($index) {
-        $scope.sales.splice($index, 1);
+   $scope.removeSales = function (salesID) {
+   //     $scope.sales.splice($index, 1);
+       var url = "php/deleteSales.php", data = $.param({sID:salesID}), config ={
+           headers : {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+           }
+       };
+       
+       $http.put(url, data, config)
+            .then(
+                function(response){
+                    $scope.msg = response.data;
+                },
+                function(response) {
+                    $scope.msg = response.data;
+                }
+                         
+       );
    };
    
 });
