@@ -20,7 +20,6 @@
 
     if($conn->query($sql) === TRUE){
         echo "Updated";
-        echo $sql;
     } else {
        echo "Error: " . $sql . "<br>" . $conn->error . "Please contact system administrator"; 
     }

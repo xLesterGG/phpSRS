@@ -152,7 +152,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
     
     
 
-       // $window.location.reload();
+        $window.location.reload();
        
    };
     
@@ -174,6 +174,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
                 }
                          
        );
+       $window.location.reload();
    };
     
   $scope.LoadData = function(iname,iorder,cname,ccontact){
@@ -183,13 +184,13 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
       $scope.clientContact2=ccontact;
   }
   
-  $scope.editSales = function(){
+  $scope.editSales = function(name,unit,client,contact){
       var url = "php/salesEdit.php";
       var data = $.param({
-          snm : $scope.itemName2,
-          iord : $scope.itemUnit2,
-          cnm : $scope.clientName2,
-          ccn : $scope.clientContact2,
+          snm : name,
+          iord : unit,
+          cnm : client,
+          ccn : contact,
           sID : $scope.sid
       });
       console.log($scope.itemName2);
@@ -209,9 +210,10 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
 					$scope.msg2 = response.data;
 				}
 			);
+      $window.location.reload();
       
   }   
-    
+
    
 });
 
