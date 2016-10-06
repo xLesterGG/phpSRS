@@ -2,12 +2,21 @@
 
 var app = angular.module("myApp", ['ui.router']);	
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (!Notification) {
+      alert('Desktop notifications not available in your browser. Try Chromium.'); 
+      return;
+    }
+    if (Notification.permission !== "granted")
+        Notification.requestPermission();
+    });
 
-app.controller("myCtrl", function ($scope, $http) {
+app.controller("myCtrl", function ($scope, $http,$state) {
 	'use strict';
     
     $scope.invenMode = 'add';
     $scope.salesMode = 'add';
+
 	
     $scope.chngInvenMode  = function () {
         $scope.invenMode = 'edit';
@@ -22,8 +31,42 @@ app.controller("myCtrl", function ($scope, $http) {
         $scope.salesMode = 'add';
     };
     
-    $scope.adminCheck = function(adminID,adminPW){
+    $scope.notifyMe = function(message) {
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+        else {
+            var notification = new Notification('Low Stock Notification', {
+            icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+            body: message,
+        });
+
+        notification.onclick = function () {
+          $state.go("InvenMan");      
+        };
+        }
+    }
     
+    $scope.checkInven = function(){
+        $http.get('php/notification.php')
+        .then (
+        function(response) {
+            $scope.lowStocks = response.data;
+            if($scope.lowStocks.length>1)
+            {
+                $scope.message="More than 1 item is low on stock";
+                $scope.notifyMe($scope.message);
+            }else{
+                $scope.message= $scope.lowStocks[0].itemName + " is low on stock";
+                $scope.notifyMe($scope.message);
+            }
+        },
+        function(response) {
+        // error handling routine
+        });    
+    }
+
+    
+    $scope.adminCheck = function(adminID,adminPW){
     var url = "php/loginCheck.php";
     var data = $.param({adminID:adminID, adminPW:adminPW});
     var config = {
@@ -44,14 +87,12 @@ app.controller("myCtrl", function ($scope, $http) {
                 else
                     {
                     $scope.adminProceed = true;
-                    window.location.href = "home.html";
-
+                    window.location.href="home.html";   
                     }
                // console.log($scope.adminProceed);
             }
         }, function (response)
-        {
-            
+        {  
         });
 };  
    
@@ -285,9 +326,9 @@ app.controller("invenCtrl",function($scope,$http,$window){
 app.config(function ($stateProvider, $urlRouterProvider) {
 	'use strict';
 	$urlRouterProvider.otherwise("/");
-
 	
 	$stateProvider
+        
 		.state('/', {
 			url: '/',
 			templateUrl: "test.html"
