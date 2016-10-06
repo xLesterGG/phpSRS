@@ -33,6 +33,7 @@ CREATE TABLE Sales
 );
 
 
+INSERT INTO useraccounts (`UserID`, `UserPassword`, `AccountType`) VALUES ('1', 'admin', 'admin');
 
 
 

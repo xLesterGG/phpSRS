@@ -22,6 +22,26 @@
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
+        
+        
+        $result = $conn->query("SELECT * FROM inventory;");
+        while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+            if ($ItemName == $rs['ItemName']) {
+                $newAvailable = $rs['UnitsAvailable'] - $ItemUnitsOrder;
+                $newUnitsOrder = $rs['UnitsOrder'] + $ItemUnitsOrder;
+
+
+                $UpdateSql = "UPDATE inventory SET UnitsAvailable = '" . $newAvailable ."'," 
+                    . "UnitsOrder = '" .$newUnitsOrder. "'"
+                    . " WHERE ItemName = '". $ItemName ."';";
+                $conn->query($UpdateSql);            
+                echo "Updated Sucessfully";
+                $conn->close();
+            }   
+
+        }
+
+        
     }
 	$conn->close();
 ?>
