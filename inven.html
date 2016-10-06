@@ -25,16 +25,23 @@
                     <tbody>
                     <tr data-ng-repeat="inven in inventoryData">
                         
-                        <td data-ng-bind="inven.ItemName" headers="itemName">1</td>
+                        <td>{{inven.itemName}}</td>
+                        <td>{{inven.itemAmount}}</td>
+                        <td>{{inven.itemDescription}}</td>
+                        <td>{{inven.itemPrice}}</td>
+                        <td>{{inven.UnitsOrder}}</td>
+
+                        <!--<td data-ng-bind="inven.ItemName" headers="itemName">1</td>
                         <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
                         <td data-ng-bind="inven.ItemDescription" headers="itemDescrp">3</td>
                         <td data-ng-bind="inven.ItemPrice" headers="itemPrice" >4</td>
-                        <td data-ng-bind="inven.UnitsOrder" headers="UnitsOrder">5</td>
+                        <td data-ng-bind="inven.UnitsOrder" headers="UnitsOrder">5</td>-->
                         <td headers="edit"><button type="submit" data-ng-click="chngInvenMode()" class="btn">Edit</button></td>
                         <td headers="del"><button type="submit" data-ng-click="" class="btn">Del</button></td>
                     </tr>
                     </tbody>
             </table>
+            {{msg}}
             
             <form name="invenAddForm" class="form-horizontal" novalidate
                       ="novalidate" data-ng-submit="addInven(itemName,itemAmount,itemDescription,itemPrice,UnitsOrder)" >
@@ -81,48 +88,49 @@
                     <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
                 </div>
            </div> 
-            <span>{{add}}</span>
+            <!--<span>{{add}}</span>-->
             </fieldset>       
             </form>
         </div>
-        <div data-ng-if="invenMode == 'edit'">
+        
+        <div data-ng-if="invenMode == 'edit'" data-ng-repeat = "inven in inventoryData|filter:{itemName:sid}">
             <form name="invenEditForm" class="form-horizontal" novalidate
-                      ="novalidate" >
+                      ="novalidate" data-ng-init="LoadData(inven.itemDescrp,inven.itemAmount,inven.itemPrice,inven.UnitsOrder)">
             <fieldset>
             <legend>Edit Stock:</legend>
             
             <div class="form-group">     
                 <label for="iName" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="text" class="form-control" data-ng-model="" id="iName" readonly/>    
+                    <input type="text" class="form-control" data-ng-model="" id="item" readonly/>    
                 </div>
             </div>
             
             <div class="form-group">     
                 <label for="iDescrp" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Description: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="text" class="form-control" data-ng-model="" id="iDescrp" />    
+                    <input type="text" class="form-control" data-ng-model="itemEditDesc" id="itemdes" />    
                 </div>
             </div>
                 
             <div class="form-group">     
                 <label for="itemEditAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="itemEditAmount" id="itemEditAmount"/>    
+                    <input type="number" class="form-control" data-ng-model="itemEditAmount" id="iAmount"/>    
                 </div>
             </div>
             
             <div class="form-group">     
                 <label for="itemEditPrice" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Price: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="itemEditPrice" id="itemEditPrice"/>    
+                    <input type="number" class="form-control" data-ng-model="itemEditPrice" id="iprice"/>    
                 </div>
             </div>
                 
             <div class="form-group">     
                 <label for="itemEditOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> UnitsOrder: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="itemEditOrder" id="itemEditOrder"/>    
+                    <input type="number" class="form-control" data-ng-model="itemEditOrder" id="uo"/>    
                 </div>
             </div>
 
@@ -130,7 +138,9 @@
                 <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
                     <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
                 </div>
-           </div> 
+           </div>
+                {{msg2}}
+                <p><a data-ng-click ="addMode2()">back &larr;</a></p>
 
             </fieldset>       
             </form>
