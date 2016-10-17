@@ -25,7 +25,7 @@
 						<input type="text" name="id" placeholder="Username"  class="form-control input-lg" data-ng-model="adminID"/>					  
 						<input type="password" class="form-control input-lg" id="password" placeholder="Password"  data-ng-model="adminPW"/> 			  					  
 						<button name="go" class="btn btn-lg btn-primary btn-block" id="login" data-ng-click="adminCheck(adminID,adminPW)">Sign in</button> 
-						
+						<button class="btn btn-lg btn-primary btn-block" id="login" data-toggle="modal" data-target="#myModal">Register</button> 
 					  
 					</form>			
                     
@@ -37,7 +37,6 @@
                         Invalid ID and Password
                         </div>
                 </section> 
-                <p><span data-toggle="modal" data-target="#myModal"> Register </span></p>
 			</div>        
 		</div>
         
@@ -47,7 +46,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Registration</h4>
+                        <h4 class="modal-title">Registration form</h4>
                     </div>
                     
                     <div class="modal-body">
@@ -55,14 +54,14 @@
                             <fieldset>
                                 <legend>Please key in your personal details</legend>
                                 <div class="form-group">
-                                    <label for="userID" class="control-label col-md-3 col-sm-3 col-xs-3"> UserID: </label>
+                                    <label for="userID" class="control-label col-md-3 col-sm-3 col-xs-3"> Username  : </label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
                                         <input type="text" class="form-control" id="userID"/>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="userPass" class="control-label col-md-3 col-sm-3 col-xs-3"> User Password:</label>
+                                    <label for="userPass" class="control-label col-md-3 col-sm-3 col-xs-3">Password:</label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
                                         <input type="password" class="form-control" id="userPass"/>
                                     </div>
@@ -76,17 +75,18 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="role" class="control-label col-md-3 col-sm-3 col-xs-3"> Role </label>
+                                    <label for="role" class="control-label col-md-3 col-sm-3 col-xs-3"> Account type </label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
                                         <select class="form-control">
-                                            <option id="role">Sales Person</option>
-                                            <option id="role">Manager</option>
+                                            <option id="role">Admin</option>
+                                            <option id="role">Officer</option>
+                                            <option id="role">Normal</option>
                                         </select>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="check" class="control-label col-md-3 col-sm-3 col-xs-3">Check-up code</label>
+                                    <label for="check" class="control-label col-md-3 col-sm-3 col-xs-3">Registration code</label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
                                         <input type="text" class="form-control" id="check"/>
                                     </div>

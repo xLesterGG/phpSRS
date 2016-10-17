@@ -100,7 +100,10 @@ form[role=login] > div {
 	text-align: center;
 }
 	
-	
+.jumbotron{
+    background-image: url("images/bg4.jpg");
+    background-size: cover;
+}
 
 	
 	

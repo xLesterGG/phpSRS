@@ -331,7 +331,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         
 		.state('/', {
 			url: '/',
-			templateUrl: "test.html"
+			templateUrl: "homecontent.html"
 		
 		})        
         
