@@ -218,11 +218,12 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
        $window.location.reload();
    };
     
-  $scope.LoadData = function(iname,iorder,cname,ccontact){
+  $scope.LoadData = function(iname,iorder,cname,ccontact,cDate){
       $scope.itemName2=iname;
       $scope.itemUnit2=parseInt(iorder);
       $scope.clientName2=cname;
       $scope.clientContact2=ccontact;
+      $scope.sDate2=cDate;
   }
   
   $scope.editSales = function(name,unit,client,contact){
@@ -254,8 +255,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
       $window.location.reload();
       
   }   
-
-   
+  
 });
 
 app.controller("invenCtrl",function($scope,$http,$window){
