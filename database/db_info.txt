@@ -33,7 +33,18 @@ CREATE TABLE Sales
 );
 
 
-INSERT INTO useraccounts (`UserID`, `UserPassword`, `AccountType`) VALUES ('1', 'admin', 'admin');
+INSERT INTO useraccounts (`UserID`, `UserPassword`, `AccountType`) VALUES ("1", "admin", "admin");
+
+CREATE TABLE RegistrationCodes(
+	CodeID INT UNSIGNED,
+	Code VARCHAR(10) NOT NULL,
+	AccountType VARCHAR(20) NOT NULL,
+	PRIMARY KEY (CodeID)
+);
+
+INSERT INTO RegistrationCodes(CodeID,Code,AccountType) VALUES ("1","aaa","admin");
+INSERT INTO RegistrationCodes(CodeID,Code,AccountType) VALUES ("2","bbb","officer");
+INSERT INTO RegistrationCodes(CodeID,Code,AccountType) VALUES ("3","ccc","normal");
 
 
 

@@ -31,6 +31,9 @@ app.controller("myCtrl", function ($scope, $http,$state) {
         $scope.salesMode = 'add';
     };
     
+    $scope.rCode = "";
+    $scope.codeIsCorrect=false;
+    
     $scope.notifyMe = function(message) {
         if (Notification.permission !== "granted")
             Notification.requestPermission();
@@ -76,28 +79,100 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     };
     
     $http.post(url,data,config)
-    .then(
-        function(response){
-            if (response.data)
-            {
-                $scope.admin = response.data;
-                console.log(response.data);
-                if($scope.admin == 'Invalid Admin ID or Password')
-                    $scope.adminProceed = false;
-                else
-                    {
-                    $scope.adminProceed = true;
-                    window.location.href="home.html";   
-                    }
-               // console.log($scope.adminProceed);
-            }
-        }, function (response)
-        {  
-        });
-};  
+        .then(
+            function(response){
+                if (response.data)
+                {
+                    $scope.admin = response.data;
+                    console.log(response.data);
+                    if($scope.admin == 'Invalid Admin ID or Password')
+                        $scope.adminProceed = false;
+                    else
+                        {
+                        $scope.adminProceed = true;
+                        window.location.href="home.html";   
+                        }
+                   // console.log($scope.adminProceed);
+                }
+            }, function (response)
+            {  
+            });
+    };  
    
-	
-    
+    $scope.checkcode = function(input){
+                         
+        if(input!='' && input == $scope.rCode)
+        {
+            $scope.codemsg ="Your code is correct, please proceed";
+            $scope.codeIsCorrect = true;
+        }
+        
+        if(input!='' && input != $scope.rCode)
+        {
+            $scope.codemsg ="Your code is incorrect, please check with your supervisor";
+
+        }
+    };
+	   
+    $scope.getCode = function(acctype){
+        $scope.inputcode ="";
+        $scope.codemsg ="";
+        $scope.codeIsCorrect=false;
+
+        console.log(acctype);
+        if(acctype=="Admin"){
+            $http.get('php/getCode1.php')  
+            .then(
+                function (response) {
+                    $scope.codes = [];
+                    $scope.codes= response.data;
+                    
+                    $scope.rCode = $scope.codes[0].Code;
+                    console.log($scope.rCode);
+                },
+                function (response) {
+                    alert(response.data);
+                }
+            );     
+            
+        }
+        else if (acctype == "Officer")
+        {
+            $http.get('php/getCode2.php')  
+            .then(
+                function (response) {
+                    $scope.codes = [];
+                    $scope.codes= response.data;
+                    
+                    $scope.rCode = $scope.codes[0].Code;
+                    console.log($scope.rCode);
+
+                },
+                function (response) {
+                    alert(response.data);
+                }
+            );  
+            
+        }
+        else{
+            $http.get('php/getCode3.php')  
+            .then(
+                function (response) {
+                    $scope.codes = [];
+                    $scope.codes= response.data;
+                    
+                    $scope.rCode = $scope.codes[0].Code;
+                    console.log($scope.rCode);
+
+                },
+                function (response) {
+                    alert(response.data);
+                }
+            ); 
+        }       
+        
+        
+    }
     
 });
 
