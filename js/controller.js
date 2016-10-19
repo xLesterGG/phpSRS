@@ -1,6 +1,22 @@
 /*global angular*/
 
-var app = angular.module("myApp", ['ui.router']);	
+var app = angular.module("myApp", ['ui.router']).directive('yearDrop',function(){
+   	function getYears(offset){
+        var currentYear = 1990;
+        var range = new Date().getFullYear()-currentYear;
+        var years = [];
+        for (var i = 0; i < range + 1; i++){
+            years.push(currentYear + offset + i);
+        }
+        return years;
+    }
+    return {
+        link: function(scope,element,attrs){
+            scope.years = getYears(+attrs.offset);
+        },
+        template: '<div class="col-md-2 col-xs-2"><br><select class="form-control" data-ng-model="selectedYear" data-ng-options="y for y in years" data-ng-change="updateYear(selectedYear)"></select></div>'
+    }
+});	
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!Notification) {
@@ -185,6 +201,36 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
         {"sID":"1", itemName:"Pills", "itemUnit":"1", "clientName":"????", "clientContact":"123","uID":"1","sDate":"11-11-1111"}
     ];*/
 
+    $scope.selectedMonth="";
+    $scope.filtermode="Month";
+    $scope.selectedMonthFilter = function(element) {
+        
+        if(!$scope.selectedMonth) 
+        {
+            return true;
+        }
+        console.log($scope.selectedMonth);
+        return element.SalesDate.split("-")[1] == $scope.selectedMonth;        
+        
+    }
+    
+    $scope.updateMonth = function(a) {
+        $scope.selectedMonth=a;
+    }
+    
+    $scope.selectedYearFilter = function(element) {
+        
+        if(!$scope.selectedYear) 
+        {
+            return true;
+        }
+        console.log($scope.selectedYear);
+        return element.SalesDate.split("-")[0] == $scope.selectedYear;        
+    }
+    
+    $scope.updateYear = function(a) {
+        $scope.selectedYear=a;
+    }
     
     $scope.getSales = function(){
         $http.get('php/phpapi.php/sales')
@@ -216,10 +262,6 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
     }
     $scope.getInven();
     
-        //$scope.currentID = parseInt($scope.sales[$scope.sales.length-1].sID) + 1;
-  //  console.log(currentID);
-      
-   
     $scope.addSales = function (itemName,itemUnit,clientName,clientContact,sDate) {
        var url = "php/salesAdd.php"
         console.log(itemName);
@@ -255,22 +297,96 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
         {
             
         });
-        
-     /*  var input = {"sID": $scope.currentID,
-                 itemName: itemName,
-                 itemUnit:itemUnit,
-                 clientName:clientName,
-                 clientContact:clientContact,
-                 uID:"1",
-                 sDate:sDate };       
-
-        $scope.sales.push(input);      */
-    
-    
 
         $window.location.reload();
-       
    };
+    
+   $scope.getSalesQty = function(){
+        $http.get('php/getSalesQty.php')
+        .then (
+        function(response) {
+            $scope.qtyItem = response.data;
+        },
+        function(response) {
+            // $scope.msg = "Service not Exists";
+        });
+   }
+   $scope.getSalesQty();
+    
+   $scope.getSalesQtyMonth = function(){
+        $http.get('php/getSalesQtyMonth.php')
+        .then (
+        function(response) {
+            $scope.qtyItemMonth = response.data;
+            console.log($scope.qtyItemMonth );
+        },
+        function(response) {
+            // $scope.msg = "Service not Exists";
+        });
+   }
+   $scope.getSalesQtyMonth();
+    
+   $scope.getSalesQtyYear = function(){
+        $http.get('php/getSalesQtyYear.php')
+        .then (
+        function(response) {
+            $scope.qtyItemYear = response.data;
+            console.log($scope.qtyItemYear );
+        },
+        function(response) {
+            // $scope.msg = "Service not Exists";
+        });
+   }
+   $scope.getSalesQtyYear();
+        
+   $scope.callChart = function(){
+        Chart.defaults.global.responsive = true;
+        // pie chart data
+        $scope.getSalesQty();
+       
+        var pieData = $scope.qtyItem;
+        var pieOptions = {
+            segmentShowStroke : false,
+            animateScale : true
+        }
+        var salesqty= document.getElementById("totalqty").getContext("2d");
+        new Chart(salesqty).Pie(pieData, pieOptions);
+       
+        // pie chart data
+        $scope.getSalesQtyMonth();
+        
+        var barData = {
+            labels : ["Jan","Feb","Mar","Apr","May","Jun","Aug","Sep","Oct","Nov","Dec"],
+            datasets : [
+                {
+                    fillColor : "#48A497",
+                    strokeColor : "#48A4D1",
+                    data :$scope.qtyItemMonth
+                }
+            ]
+        }
+        var totalqtyMonth = document.getElementById("totalqtyMonth").getContext("2d");
+        new Chart(totalqtyMonth).Bar(barData);
+       
+        $scope.getSalesQtyYear();
+        var currentyear=new Date().getFullYear();
+       
+        var SalesData = {
+            labels : [currentyear-4,currentyear-3,currentyear-2,currentyear-1,currentyear],
+            datasets : [
+            {
+                fillColor : "rgba(172,194,132,0.4)",
+                strokeColor : "#ACC26D",
+                pointColor : "#fff",
+                pointStrokeColor : "#9DB86D",
+                data:$scope.qtyItemYear
+            }
+        ]
+        }
+        var sales = document.getElementById('totalqtyYear').getContext('2d');
+        new Chart(sales).Line(SalesData);
+   }
+    
     
    $scope.removeSales = function (salesID) {
    //     $scope.sales.splice($index, 1);
@@ -413,6 +529,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('SalesMan', {
 			url: '/SalesManagement',
 			templateUrl: "sales.html"
+		
+		})	
+        
+        .state('SalesAnalyse', {
+			url: '/SalesAnalyse',
+			templateUrl: "graph.html"
 		
 		})	
     

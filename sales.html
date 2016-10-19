@@ -1,13 +1,36 @@
 <div class="row" data-ng-controller="salesCtrl">
     <div class="col-md-12 col-xs-12 maincontent">
-<!--
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" data-ng-click = "mode = 'add'">Add Sales</button>
-            <button type="button" class="btn btn-default" data-ng-click = "mode = 'edit'">Edit Sales</button><br/><br/><br/>
-        </div>
--->
 
         <div data-ng-if="salesMode == 'add'">
+            
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Month'">Monthly</button>
+              <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Year'">Yearly</button>
+            </div>
+    
+            <div class="row" data-ng-if="filtermode=='Month'">
+                <div class="col-md-2 col-xs-2">
+                    <br>
+                    <select class="form-control col-md-3" data-ng-model="selectedMonth" data-ng-change="updateMonth(selectedMonth)">
+                      <option value=""></option>
+                      <option value="01">Jan</option>  
+                      <option value="02">Feb</option>  
+                      <option value="03">Mar</option>  
+                      <option value="04">Apr</option>  
+                      <option value="05">May</option>  
+                      <option value="06">Jun</option>  
+                      <option value="07">Jul</option>  
+                      <option value="08">Aug</option>  
+                      <option value="09">Sep</option>  
+                      <option value="10">Oct</option>  
+                      <option value="11">Nov</option>  
+                      <option value="12">Dec</option>  
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row" year-drop offset="0" data-ng-if="filtermode=='Year'"></div>
+            <br>
             <table class="table table-hover table-bordered table-condensed">
                     <thead>
                     <tr>
@@ -23,9 +46,9 @@
                     </tr>
                     </thead>
 
-                    <tbody>
-                        <tr data-ng-repeat="sales in salesData">
-
+                    <tbody data-ng-if="filtermode=='Year'">
+                        <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter">
+ 
                             <td>{{sales.SalesID}}</td>
                             <td>{{sales.ItemName}}</td>
                             <td>{{sales.ItemUnitsOrder}}</td>		
@@ -34,12 +57,22 @@
                             <td>{{sales.UserID}}</td>
                             <td>{{sales.SalesDate}}</td>
 
-                           <!-- <td data-ng-bind="" headers="itemName">1</td>
-                            <td data-ng-bind="" headers="itemUnitOrder">2</td>
-                            <td data-ng-bind="" headers="clientName">3</td>
-                            <td data-ng-bind="" headers="clientContact" >4</td>
-                            <td data-ng-bind="" headers="userID">5</td>
-                            <td data-ng-bind="" headers="salesDate">5</td>-->
+                            <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
+                            <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
+                        </tr>
+                    </tbody>
+                
+                    <tbody data-ng-if="filtermode=='Month'">
+                        <tr data-ng-repeat="sales in salesData | filter: selectedMonthFilter">
+ 
+                            <td>{{sales.SalesID}}</td>
+                            <td>{{sales.ItemName}}</td>
+                            <td>{{sales.ItemUnitsOrder}}</td>		
+                            <td>{{sales.ClientName}}</td>
+                            <td>{{sales.ClientContact}}</td>
+                            <td>{{sales.UserID}}</td>
+                            <td>{{sales.SalesDate}}</td>
+
                             <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
                             <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
                         </tr>
