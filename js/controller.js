@@ -114,6 +114,38 @@ app.controller("myCtrl", function ($scope, $http,$state) {
             {  
             });
     };  
+    
+    $scope.adminRegis = function (userName,password,account){
+        console.log("I am here");
+        if($scope.codeIsCorrect == true){
+        var url = "php/register.php"
+        var data = $.param({
+            UserID : userName,
+            UserPassword : password,
+            AccountType : account
+        });
+        
+        var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        
+        $http.post(url,data,config)
+        .then(
+				function (response) {
+					$scope.msg3 = response.data;
+
+				},
+				function (response) {
+					$scope.msg3 = response.data;
+				}
+			); 
+        } else{
+            $scope.msg3 = "Please double check your field";
+        }
+        
+    };
    
     $scope.checkcode = function(input){
                          

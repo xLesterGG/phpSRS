@@ -50,27 +50,27 @@
                     </div>
                     
                     <div class="modal-body">
-                        <form name="registrationForm" class="form-horizontal" novalidate="novalidate" data-ng-submit="">
+                        <form name="registrationForm" class="form-horizontal" novalidate="novalidate" data-ng-submit="adminRegis(userID,userPass,acctype)">
                             <fieldset>
                                 <legend>Please key in your personal details</legend>
                                 <div class="form-group">
                                     <label for="userID" class="control-label col-md-3 col-sm-3 col-xs-3"> Username  : </label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" class="form-control" id="userID"/>
+                                        <input type="text" class="form-control" data-ng-model="userID" id="userID"/>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="userPass" class="control-label col-md-3 col-sm-3 col-xs-3">Password:</label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <input type="password" class="form-control" id="userPass"/>
+                                        <input type="password" class="form-control" data-ng-model="userPass" id="userPass"/>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="userPass2" class="control-label col-md-3 col-sm-3 col-xs-3"> Confirm-Password:</label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <input type="password" class="form-control" id="userPass2"/>
+                                        <input type="password" class="form-control" id="userPass2" data-ng-model="userPass2" data-ng-pattern="userPass"/>
                                     </div>
                                 </div>
                                 
@@ -101,6 +101,7 @@
                                 </div>
                             </fieldset>
                         </form>
+                        {{msg3}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -109,9 +110,7 @@
                 </div>
             </div>
         </div>
-			
-			
-					
+           
 			
 		<footer class="footer">
 			<p> For any inquiries regarding anything, please contact <a href="mailto:4329619@students.swinburne.edu.my">Lester	</a></p>
