@@ -34,8 +34,9 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     $scope.salesMode = 'add';
 
 	
-    $scope.chngInvenMode  = function () {
+    $scope.chngInvenMode  = function (id) {
         $scope.invenMode = 'edit';
+        $scope.iid = id;
     };
     
     $scope.chngSalesMode  = function (id) {
@@ -46,6 +47,10 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     $scope.addMode  = function () {
         $scope.salesMode = 'add';
     };
+    
+    $scope.addMode2 = function () {
+        $scope.invenMode = 'add';
+    }
     
     $scope.rCode = "";
     $scope.codeIsCorrect=false;
@@ -488,6 +493,7 @@ app.controller("invenCtrl",function($scope,$http,$window){
         .then (
         function(response) {
             $scope.inventoryData = response.data;
+            console.log(response.data);
             
         },
         function(response) {
@@ -519,6 +525,63 @@ app.controller("invenCtrl",function($scope,$http,$window){
         });
         $window.location.reload();
     };
+    
+    $scope.removeInventory = function (itemName) {
+       var url = "php/removeInven.php", data = $.param({iID:itemName}), config ={
+           headers : {
+               'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+           }
+       };
+       
+       $http.put(url, data, config)
+            .then(
+                function(response){
+                    $scope.msg = response.data;
+                },
+                function(response) {
+                    $scope.msg = response.data;
+                }
+                         
+       );
+       $window.location.reload();
+   };
+    
+    $scope.LoadData = function(idesc,iamount,iprice,uorder){
+      $scope.itemEditDesc=idesc;
+      $scope.itemEditAmount=parseInt(iamount);
+      $scope.itemEditPrice=parseInt(iprice);
+      $scope.itemEditOrder=parseInt(uorder);
+  }
+    
+    $scope.manageInven = function(desc,amount,price,unitorder){
+      var url = "php/invenManage.php";
+      var data = $.param({
+          dsc : desc,
+          amn : amount,
+          prc : price,
+          uio : unitorder,
+          iID : $scope.iid
+      });
+      
+      var config = {
+          headers : {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+          }
+      };
+      
+      $http.put(url, data, config)
+			.then(
+				function (response) {
+					$scope.msg2 = response.data;
+
+				},
+				function (response) {
+					$scope.msg2 = response.data;
+				}
+			);
+      $window.location.reload();
+      
+  }
     
 //   $scope.inven= [
 //        {itemName:"Pills", "itemAmount":3, "itemDescription":"A powerful pill", "itemPrice":10.00,"UnitsOrder":1}

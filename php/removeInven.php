@@ -7,7 +7,7 @@
     if($del_vars['iID'] !=='')
     {
         $iID = $del_vars['iID'];
-        $sql = "DELETE FROM inven WHERE itemName = '" . $iID . "';";
+        $sql = "DELETE FROM inventory WHERE ItemName = '" . $iID . "';";
     }
     
     //feedback

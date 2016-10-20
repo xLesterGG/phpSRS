@@ -11,11 +11,11 @@
         $uio = $put_vars['uio'];
         $iID = $put_vars['iID'];
         
-        $sql = "UPDATE sales SET itemDescription = '" .$dsc ."'," 
-            . "itemAmount = '" .$amn . "'," 
+        $sql = "UPDATE inventory SET itemDescription = '" .$dsc ."'," 
+            . "UnitsAvailable = '" .$amn . "'," 
             . "itemPrice = '" .$prc ."',"
             . "UnitsOrder = '".$uio ."'"
-            . "WHERE itemName = '" . $iID . "';";
+            . "WHERE ItemName = '" . $iID . "';";
     }
 
     if($conn->query($sql) === TRUE){
