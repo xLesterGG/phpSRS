@@ -55,6 +55,9 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     $scope.rCode = "";
     $scope.codeIsCorrect=false;
     
+    $scope.IDu = "";
+    $scope.Acc = "";
+    
     $scope.notifyMe = function(message) {
         if (Notification.permission !== "granted")
             Notification.requestPermission();
@@ -105,23 +108,52 @@ app.controller("myCtrl", function ($scope, $http,$state) {
                 if (response.data)
                 {
                     $scope.admin = response.data;
-                    console.log(response.data);
                     if($scope.admin == 'Invalid Admin ID or Password')
                         $scope.adminProceed = false;
                     else
                         {
                         $scope.adminProceed = true;
-                        window.location.href="home.html";   
+                        $scope.IDu = $scope.admin;
+                        console.log($scope.IDu);
+                        $scope.adminGet(adminID);
+                      //  window.location.href="home.html";   
+                        
                         }
                    // console.log($scope.adminProceed);
                 }
             }, function (response)
             {  
             });
-    };  
+    };
+    
+    $scope.adminGet = function(adminID){
+    var url = "php/getAcc.php";
+    var data = $.param({adminID:adminID});
+    var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+    };
+    
+    $http.post(url,data,config)
+        .then(
+            function(response){
+                if (response.data)
+                {
+                    $scope.get = [];
+                    $scope.get = response.data;
+                    
+                    $scope.IDu = $scope.get[0].UserID;
+                    $scope.Acc = $scope.get[0].AccountType;
+                    console.log($scope.get);
+                }
+            }, function (response)
+            {  
+                alert(response.data);
+            });
+    };
     
     $scope.adminRegis = function (userName,password,account){
-        console.log("I am here");
         if($scope.codeIsCorrect == true){
         var url = "php/register.php"
         var data = $.param({
