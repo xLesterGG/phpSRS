@@ -1,8 +1,12 @@
-<div class="row" data-ng-controller="salesCtrl">
-    <div class="col-md-12 col-xs-12 maincontent">
-
-        <div data-ng-if="salesMode == 'add'">
+<div data-ng-if="salesMode == 'add'">
             
+
+
+<div class="row" data-ng-controller="salesCtrl">
+    
+    <!-- Admin Table -->
+    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="type == 'Admin' ">
+        
             <div class="btn-group" role="group">
               <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Month'">Monthly</button>
               <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Year'">Yearly</button>
@@ -143,6 +147,287 @@
                </fieldset>       
             </form>
         </div>
+    
+    <!-- officer table-->
+    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="type == 'Officer' ">
+        
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Month'">Monthly</button>
+              <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Year'">Yearly</button>
+            </div>
+    
+            <div class="row" data-ng-if="filtermode=='Month'">
+                <div class="col-md-2 col-xs-2">
+                    <br>
+                    <select class="form-control col-md-3" data-ng-model="selectedMonth" data-ng-change="updateMonth(selectedMonth)">
+                      <option value=""></option>
+                      <option value="01">Jan</option>  
+                      <option value="02">Feb</option>  
+                      <option value="03">Mar</option>  
+                      <option value="04">Apr</option>  
+                      <option value="05">May</option>  
+                      <option value="06">Jun</option>  
+                      <option value="07">Jul</option>  
+                      <option value="08">Aug</option>  
+                      <option value="09">Sep</option>  
+                      <option value="10">Oct</option>  
+                      <option value="11">Nov</option>  
+                      <option value="12">Dec</option>  
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row" year-drop offset="0" data-ng-if="filtermode=='Year'"></div>
+            <br>
+            <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th scope="col"  class="info">SalesID</th>
+                        <th id="itemName" scope="col"  class="info">ItemName</th>
+                        <th id="itemUnitOrder" scope="col" class="info">ItemUnitOrder</th>
+                        <th id="clientName" scope="col" class="info">ClientName</th>
+                        <th id="clientContact" scope="col"  class="info">ClientContact</th>
+                        <th id="userID" scope="col"  class="info">UserID</th>
+                        <th id="salesDate" scope="col" class="info">SalesDate</th>
+                        <th id="edit" scope="col" class="info">Edit</th>
+                    </tr>
+                    </thead>
+
+                    <tbody data-ng-if="filtermode=='Year'">
+                        <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter">
+ 
+                            <td>{{sales.SalesID}}</td>
+                            <td>{{sales.ItemName}}</td>
+                            <td>{{sales.ItemUnitsOrder}}</td>		
+                            <td>{{sales.ClientName}}</td>
+                            <td>{{sales.ClientContact}}</td>
+                            <td>{{sales.UserID}}</td>
+                            <td>{{sales.SalesDate}}</td>
+
+                            <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
+
+                        </tr>
+                    </tbody>
+                
+                    <tbody data-ng-if="filtermode=='Month'">
+                        <tr data-ng-repeat="sales in salesData | filter: selectedMonthFilter">
+ 
+                            <td>{{sales.SalesID}}</td>
+                            <td>{{sales.ItemName}}</td>
+                            <td>{{sales.ItemUnitsOrder}}</td>		
+                            <td>{{sales.ClientName}}</td>
+                            <td>{{sales.ClientContact}}</td>
+                            <td>{{sales.UserID}}</td>
+                            <td>{{sales.SalesDate}}</td>
+
+                            <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
+                        </tr>
+                    </tbody>
+            </table>
+            {{msg}}
+            
+            
+            
+            
+            
+            <form name="salesAddForm" class="form-horizontal" novalidate
+                      ="novalidate" data-ng-submit="addSales(itemName,itemUnit,clientName,clientContact,sDate)" >
+                <fieldset>
+                <legend>Insert New Sales:</legend>
+                    
+
+                <div class="form-group">
+                    <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>  -->
+                        <select class="form-control" data-ng-model="itemName">
+                            <option data-ng-repeat="inven in inventoryData" value="{{inven.ItemName}}"  id="item">{{inven.ItemName}}</option>               
+                        </select>                        
+                    </div>
+                </div>
+
+                <div class="form-group">     
+                    <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder"/>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type="text" class="form-control" data-ng-model="clientName" id="cName"/>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type="text" class="form-control" data-ng-model="clientContact" id="cContact"/>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     <label for="datepicker" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
+                     <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" />
+                     </div>
+                     <script type="text/javascript">
+                         $(function(){
+                         $('#datepicker').datepicker({
+                            format: 'yyyy-mm-dd'
+                         });
+                     });
+                     </script>
+                </div>
+                    
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
+                        <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
+                    </div>
+               </div> 
+               </fieldset>       
+            </form>
+        </div>
+    
+    
+    <!--Normal user -->
+    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="type == 'Normal' ">
+        <p> normal</p>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Month'">Monthly</button>
+              <button type="button" class="btn btn-default" data-ng-click = "filtermode = 'Year'">Yearly</button>
+            </div>
+    
+            <div class="row" data-ng-if="filtermode=='Month'">
+                <div class="col-md-2 col-xs-2">
+                    <br>
+                    <select class="form-control col-md-3" data-ng-model="selectedMonth" data-ng-change="updateMonth(selectedMonth)">
+                      <option value=""></option>
+                      <option value="01">Jan</option>  
+                      <option value="02">Feb</option>  
+                      <option value="03">Mar</option>  
+                      <option value="04">Apr</option>  
+                      <option value="05">May</option>  
+                      <option value="06">Jun</option>  
+                      <option value="07">Jul</option>  
+                      <option value="08">Aug</option>  
+                      <option value="09">Sep</option>  
+                      <option value="10">Oct</option>  
+                      <option value="11">Nov</option>  
+                      <option value="12">Dec</option>  
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row" year-drop offset="0" data-ng-if="filtermode=='Year'"></div>
+            <br>
+            <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th scope="col"  class="info">SalesID</th>
+                        <th id="itemName" scope="col"  class="info">ItemName</th>
+                        <th id="itemUnitOrder" scope="col" class="info">ItemUnitOrder</th>
+                        <th id="clientName" scope="col" class="info">ClientName</th>
+                        <th id="clientContact" scope="col"  class="info">ClientContact</th>
+                        <th id="userID" scope="col"  class="info">UserID</th>
+                        <th id="salesDate" scope="col" class="info">SalesDate</th>
+                    </tr>
+                    </thead>
+
+                    <tbody data-ng-if="filtermode=='Year'">
+                        <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter |filter: IDuser">
+ 
+                            <td>{{sales.SalesID}}</td>
+                            <td>{{sales.ItemName}}</td>
+                            <td>{{sales.ItemUnitsOrder}}</td>		
+                            <td>{{sales.ClientName}}</td>
+                            <td>{{sales.ClientContact}}</td>
+                            <td>{{sales.UserID}}</td>
+                            <td>{{sales.SalesDate}}</td>
+                            
+                        </tr>
+                    </tbody>
+                
+                    <tbody data-ng-if="filtermode=='Month'">
+                        <tr data-ng-repeat="sales in salesData | filter: selectedMonthFilter |filter: IDuser">
+ 
+                            <td>{{sales.SalesID}}</td>
+                            <td>{{sales.ItemName}}</td>
+                            <td>{{sales.ItemUnitsOrder}}</td>		
+                            <td>{{sales.ClientName}}</td>
+                            <td>{{sales.ClientContact}}</td>
+                            <td>{{sales.UserID}}</td>
+                            <td>{{sales.SalesDate}}</td>
+
+                        </tr>
+                    </tbody>
+            </table>
+            {{msg}}
+            
+            
+            
+            
+            
+            <form name="salesAddForm" class="form-horizontal" novalidate
+                      ="novalidate" data-ng-submit="addSales(itemName,itemUnit,clientName,clientContact,sDate)" >
+                <fieldset>
+                <legend>Insert New Sales:</legend>
+                    
+
+                <div class="form-group">
+                    <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>  -->
+                        <select class="form-control" data-ng-model="itemName">
+                            <option data-ng-repeat="inven in inventoryData" value="{{inven.ItemName}}"  id="item">{{inven.ItemName}}</option>               
+                        </select>                        
+                    </div>
+                </div>
+
+                <div class="form-group">     
+                    <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder"/>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type="text" class="form-control" data-ng-model="clientName" id="cName"/>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
+                    <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type="text" class="form-control" data-ng-model="clientContact" id="cContact"/>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     <label for="datepicker" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
+                     <div class="col-md-3 col-sm-3 col-xs-8">
+                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" />
+                     </div>
+                     <script type="text/javascript">
+                         $(function(){
+                         $('#datepicker').datepicker({
+                            format: 'yyyy-mm-dd'
+                         });
+                     });
+                     </script>
+                </div>
+                    
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
+                        <button type="submit" class="btn btn-lg btn-primary" data-ng-click="">Insert</button>
+                    </div>
+               </div> 
+               </fieldset>       
+            </form>
+        </div>
         
         
         <!--sales edit-->
@@ -214,4 +499,6 @@
             </form>
         </div>
     </div>
-</div>            
+</div>    
+
+

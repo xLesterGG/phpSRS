@@ -7,8 +7,10 @@
             <button type="button" class="btn btn-default">Edit Stock</button><br/><br/><br/>
         </div>
 -->
-
         <div data-ng-if="invenMode == 'add'">
+            <!--admin-->
+            <div data-ng-if="type == 'Admin'">
+
             <table class="table table-hover table-bordered table-condensed">
                     <thead>
                     <tr>
@@ -42,6 +44,79 @@
                     </tbody>
             </table>
             {{msg}}
+            </div>
+            <!--officer-->
+            <div data-ng-if="type == 'Officer'">
+
+            <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th id="itemName" scope="col"  class="info">ItemName</th>
+                        <th id="itemAmount" scope="col" class="info">ItemAmount</th>
+                        <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
+                        <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
+                        <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+                        <th id="edit" scope="col" class="info">Edit</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr data-ng-repeat="inven in inventoryData">
+                        
+                        <td>{{inven.ItemName}}</td>
+                        <td>{{inven.UnitsAvailable}}</td>
+                        <td>{{inven.ItemDescription}}</td>
+                        <td>{{inven.ItemPrice}}</td>
+                        <td>{{inven.UnitsOrder}}</td>
+                        
+                        <!--<td data-ng-bind="inven.ItemName" headers="itemName">1</td>
+                        <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
+                        <td data-ng-bind="inven.ItemDescription" headers="itemDescrp">3</td>
+                        <td data-ng-bind="inven.ItemPrice" headers="itemPrice" >4</td>
+                        <td data-ng-bind="inven.UnitsOrder" headers="UnitsOrder">5</td>-->
+                        <td headers="edit"><button type="submit" data-ng-click="chngInvenMode(inven.ItemName)" class="btn">Edit</button></td>
+
+                    </tr>
+                    </tbody>
+            </table>
+            {{msg}}
+            </div>
+            <!-- normal user -->
+            <div data-ng-if="type == 'Normal'">
+
+            <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                    <tr>
+                        <th id="itemName" scope="col"  class="info">ItemName</th>
+                        <th id="itemAmount" scope="col" class="info">ItemAmount</th>
+                        <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
+                        <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
+                        <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr data-ng-repeat="inven in inventoryData">
+                        
+                        <td>{{inven.ItemName}}</td>
+                        <td>{{inven.UnitsAvailable}}</td>
+                        <td>{{inven.ItemDescription}}</td>
+                        <td>{{inven.ItemPrice}}</td>
+                        <td>{{inven.UnitsOrder}}</td>
+                        
+                        <!--<td data-ng-bind="inven.ItemName" headers="itemName">1</td>
+                        <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
+                        <td data-ng-bind="inven.ItemDescription" headers="itemDescrp">3</td>
+                        <td data-ng-bind="inven.ItemPrice" headers="itemPrice" >4</td>
+                        <td data-ng-bind="inven.UnitsOrder" headers="UnitsOrder">5</td>-->
+
+                    </tr>
+                    </tbody>
+            </table>
+            {{msg}}
+            </div>
             
             <form name="invenAddForm" class="form-horizontal" novalidate
                       ="novalidate" data-ng-submit="addInven(itemName,itemAmount,itemDescription,itemPrice,UnitsOrder)" >

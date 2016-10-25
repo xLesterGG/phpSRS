@@ -26,7 +26,7 @@ CREATE TABLE Sales
 	ItemUnitsOrder INT UNSIGNED,
 	ClientName VARCHAR(30) NOT NULL,
 	ClientContact VARCHAR(20) NOT NULL,
-	UserID INT UNSIGNED,
+	UserID VARCHAR(30) NOT NULL,
 	SalesDate VARCHAR(100),
 	PRIMARY KEY (SalesID),
 	FOREIGN KEY (ItemName) REFERENCES Inventory (ItemName)

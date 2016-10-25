@@ -18,6 +18,8 @@ var app = angular.module("myApp", ['ui.router']).directive('yearDrop',function()
     }
 });	
 
+app.value("acc",'Normal');
+
 document.addEventListener('DOMContentLoaded', function () {
     if (!Notification) {
       alert('Desktop notifications not available in your browser. Try Chromium.'); 
@@ -32,7 +34,6 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     
     $scope.invenMode = 'add';
     $scope.salesMode = 'add';
-
 	
     $scope.chngInvenMode  = function (id) {
         $scope.invenMode = 'edit';
@@ -116,7 +117,7 @@ app.controller("myCtrl", function ($scope, $http,$state) {
                         $scope.IDu = $scope.admin;
                         console.log($scope.IDu);
                         $scope.adminGet(adminID);
-                      //  window.location.href="home.html";   
+                        window.location.href="home.html";   
                         
                         }
                    // console.log($scope.adminProceed);
@@ -184,6 +185,10 @@ app.controller("myCtrl", function ($scope, $http,$state) {
         
     };
    
+    $scope.logout = function(){
+        window.location.href="index.html"
+    }
+    
     $scope.checkcode = function(input){
                          
         if(input!='' && input == $scope.rCode)
@@ -261,7 +266,7 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     
 });
 
-app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
+app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
     'use strict';
     //$scope.sid = 0;
     console.log($scope.sid);
@@ -269,9 +274,15 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
    /* $scope.sales= [
         {"sID":"1", itemName:"Pills", "itemUnit":"1", "clientName":"????", "clientContact":"123","uID":"1","sDate":"11-11-1111"}
     ];*/
+    
+    $scope.type = acc;
+    $scope.IDuser = 'Ambrose';
+    
+    
 
     $scope.selectedMonth="";
     $scope.filtermode="Month";
+    
     $scope.selectedMonthFilter = function(element) {
         
         if(!$scope.selectedMonth) 
@@ -344,7 +355,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
 			ItemUnitsOrder: itemUnit,
 			ClientName: clientName,
 			ClientContact: clientContact,
-            UserID:1,
+            UserID:'Lester',
             SalesDate:sDate
 		});
         
@@ -518,7 +529,11 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
   
 });
 
-app.controller("invenCtrl",function($scope,$http,$window){
+app.controller("invenCtrl",function($scope,$http,$window, acc){
+    
+    $scope.type = acc;
+    console.log($scope.type);
+    
     'use strict';
     $scope.getInven = function(){
         $http.get('php/phpapi.php/inventory')
