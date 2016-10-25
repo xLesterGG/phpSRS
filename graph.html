@@ -2,7 +2,29 @@
     <div class="col-md-12 col-xs-12 maincontent">
 
         <h2>View Sales</h2>
-        <a class="btn btn-default" data-ng-click="callChart()">Activate Graph</a>
+        
+        <div class="row">
+            <div class="col-md-2 col-xs-2">
+                <br>
+                <div year-drop offset="0"></div>
+                Month:
+                <select class="form-control col-md-3" data-ng-model="selectedMonth" data-ng-change="updateMonth(selectedMonth)">
+                  <option value=""></option>
+                  <option value="01">Jan</option>  
+                  <option value="02">Feb</option>  
+                  <option value="03">Mar</option>  
+                  <option value="04">Apr</option>  
+                  <option value="05">May</option>  
+                  <option value="06">Jun</option>  
+                  <option value="07">Jul</option>  
+                  <option value="08">Aug</option>  
+                  <option value="09">Sep</option>  
+                  <option value="10">Oct</option>  
+                  <option value="11">Nov</option>  
+                  <option value="12">Dec</option>  
+                </select>
+            </div>
+        </div>
         
         <div class="row">
             <div class="table-responsive col-md-12" >
@@ -10,7 +32,7 @@
                     <div class="col-md-8">
                         <br>
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Total Sold Out Quantity</div>
+                            <div class="panel-heading">Total Sold Out Quantity in {{selectedMonth}}/{{selectedYear}}</div>
                             <div class="panel-body">
                                 <div class="canvas-wrapper">
                                     <canvas class="chart" id="totalqty"></canvas>
@@ -22,21 +44,14 @@
             </div>
         </div>
         
+        <div>
+            <a class="btn btn-default" data-ng-click="getSalesQty(selectedYear,selectedMonth)">Activate Bar Chart</a>
+        </div><br>
+        
         <div class="row">
-            <div class="table-responsive col-md-12" >
-                <div class="row">
-                    <div class="col-md-8">
-                        <br>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">Total Sold Out Quantity By Month</div>
-                            <div class="panel-body">
-                                <div class="canvas-wrapper">
-                                    <canvas class="chart" id="totalqtyMonth"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-2 col-xs-2">
+                <br>
+                <div year-drop2 offset="0"></div>
             </div>
         </div>
         
@@ -46,7 +61,7 @@
                     <div class="col-md-8">
                         <br>
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Total Sold Out Quantity By Year</div>
+                            <div class="panel-heading">Sales Trend In Year {{selectedYear2}}</div>
                             <div class="panel-body">
                                 <div class="canvas-wrapper">
                                     <canvas class="chart" id="totalqtyYear"></canvas>
@@ -58,5 +73,8 @@
             </div>
         </div>
         
+        <div>
+            <a class="btn btn-default" data-ng-click="getSalesQtyMonth(selectedYear2)">Activate Line Graph</a>
+        </div><br>
     </div>
 </div>            

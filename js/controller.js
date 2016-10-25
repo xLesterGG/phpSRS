@@ -1,6 +1,8 @@
 /*global angular*/
 
-var app = angular.module("myApp", ['ui.router']).directive('yearDrop',function(){
+var app = angular.module("myApp", ['ui.router']);
+
+app.directive('yearDrop',function(){
    	function getYears(offset){
         var currentYear = 1990;
         var range = new Date().getFullYear()-currentYear;
@@ -14,9 +16,27 @@ var app = angular.module("myApp", ['ui.router']).directive('yearDrop',function()
         link: function(scope,element,attrs){
             scope.years = getYears(+attrs.offset);
         },
-        template: '<div class="col-md-2 col-xs-2"><br><select class="form-control" data-ng-model="selectedYear" data-ng-options="y for y in years" data-ng-change="updateYear(selectedYear)"></select></div>'
+        template: 'Year:<select class="form-control" data-ng-model="selectedYear" data-ng-options="y for y in years" data-ng-change="updateYear(selectedYear)"></select>'
     }
-});	
+});
+
+app.directive('yearDrop2',function(){
+   	function getYears(offset){
+        var currentYear = 1990;
+        var range = new Date().getFullYear()-currentYear;
+        var years = [];
+        for (var i = 0; i < range + 1; i++){
+            years.push(currentYear + offset + i);
+        }
+        return years;
+    }
+    return {
+        link: function(scope,element,attrs){
+            scope.years = getYears(+attrs.offset);
+        },
+        template: 'Year:<select class="form-control" data-ng-model="selectedYear2" data-ng-options="y for y in years" data-ng-change="updateYear2(selectedYear2)"></select>'
+    }
+});
 
 app.value("acc",'Normal');
 
@@ -381,85 +401,89 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
         $window.location.reload();
    };
     
-   $scope.getSalesQty = function(){
-        $http.get('php/getSalesQty.php')
-        .then (
-        function(response) {
-            $scope.qtyItem = response.data;
-        },
-        function(response) {
-            // $scope.msg = "Service not Exists";
-        });
-   }
-   $scope.getSalesQty();
-    
-   $scope.getSalesQtyMonth = function(){
-        $http.get('php/getSalesQtyMonth.php')
-        .then (
-        function(response) {
-            $scope.qtyItemMonth = response.data;
-            console.log($scope.qtyItemMonth );
-        },
-        function(response) {
-            // $scope.msg = "Service not Exists";
-        });
-   }
-   $scope.getSalesQtyMonth();
-    
-   $scope.getSalesQtyYear = function(){
-        $http.get('php/getSalesQtyYear.php')
-        .then (
-        function(response) {
-            $scope.qtyItemYear = response.data;
-            console.log($scope.qtyItemYear );
-        },
-        function(response) {
-            // $scope.msg = "Service not Exists";
-        });
-   }
-   $scope.getSalesQtyYear();
+   $scope.getSalesQty = function(year,month){
+        var url = "php/getSalesQty.php"
         
-   $scope.callChart = function(){
+        $scope.currentID+=1;
+        var data = $.param({
+			Year : year,
+			Month: month
+		});
+        
+        var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+            }
+        };
+        
+        $http.post(url,data,config)
+        .then(
+        function(response){
+            if (response.data)
+            {
+                $scope.qtyItem = response.data;
+                $scope.callPieChart($scope.qtyItem);
+                console.log($scope.qtyItem);
+            }
+        }, function (response)
+        {
+            
+        });
+   }
+    
+   $scope.getSalesQtyMonth = function(year){
+            var url = "php/getSalesQtyMonth.php"
+
+            var data = $.param({
+                Year : year
+            });
+
+            var config = {
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            };
+
+            $http.post(url,data,config)
+            .then(
+            function(response){
+                if (response.data)
+                {
+                    $scope.qtyItemMonth = response.data;
+                    $scope.callLineChart($scope.qtyItemMonth);
+                    console.log($scope.qtyItemMonth);
+                }
+            }, function (response)
+            {
+
+            });
+   }
+
+   $scope.callPieChart = function(item){
         Chart.defaults.global.responsive = true;
         // pie chart data
-        $scope.getSalesQty();
        
-        var pieData = $scope.qtyItem;
+        var pieData = item;
+        console.log(pieData);
         var pieOptions = {
             segmentShowStroke : false,
             animateScale : true
         }
         var salesqty= document.getElementById("totalqty").getContext("2d");
         new Chart(salesqty).Pie(pieData, pieOptions);
-       
-        // pie chart data
-        $scope.getSalesQtyMonth();
-        
-        var barData = {
-            labels : ["Jan","Feb","Mar","Apr","May","Jun","Aug","Sep","Oct","Nov","Dec"],
-            datasets : [
-                {
-                    fillColor : "#48A497",
-                    strokeColor : "#48A4D1",
-                    data :$scope.qtyItemMonth
-                }
-            ]
-        }
-        var totalqtyMonth = document.getElementById("totalqtyMonth").getContext("2d");
-        new Chart(totalqtyMonth).Bar(barData);
-       
-        $scope.getSalesQtyYear();
-        var currentyear=new Date().getFullYear();
-       
+   }
+   
+   $scope.callLineChart = function(item){
+       Chart.defaults.global.responsive = true;
         var SalesData = {
-            labels : [currentyear-4,currentyear-3,currentyear-2,currentyear-1,currentyear],
+            labels : ["Jan","Feb","Mar","Apr","May","Jun","Aug","Sep","Oct","Nov","Dec"],
             datasets : [
             {
                 fillColor : "rgba(172,194,132,0.4)",
                 strokeColor : "#ACC26D",
                 pointColor : "#fff",
                 pointStrokeColor : "#9DB86D",
-                data:$scope.qtyItemYear
+                data:item
             }
         ]
         }
