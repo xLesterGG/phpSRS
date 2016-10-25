@@ -362,7 +362,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
     }
     $scope.getInven();
     
-    $scope.addSales = function (itemName,itemUnit,clientName,clientContact,sDate) {
+    $scope.addSales = function (itemName,itemUnit,clientName,clientContact,sDate, tPrice) {
        var url = "php/salesAdd.php"
         console.log(itemName);
                 console.log(itemUnit);
@@ -376,7 +376,8 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
 			ClientName: clientName,
 			ClientContact: clientContact,
             UserID:'Lester',
-            SalesDate:sDate
+            SalesDate:sDate,
+            TotalPrice:tPrice
 		});
         
         var config = {
