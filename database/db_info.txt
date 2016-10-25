@@ -28,6 +28,7 @@ CREATE TABLE Sales
 	ClientContact VARCHAR(20) NOT NULL,
 	UserID VARCHAR(30) NOT NULL,
 	SalesDate VARCHAR(100),
+    TotalPrice DECIMAL(10,2),
 	PRIMARY KEY (SalesID),
 	FOREIGN KEY (ItemName) REFERENCES Inventory (ItemName)
 );
