@@ -38,7 +38,7 @@ app.directive('yearDrop2',function(){
     }
 });
 
-app.value("acc",'Normal');
+app.value("acc",'Admin');
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!Notification) {

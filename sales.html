@@ -1,3 +1,8 @@
+
+<script src="js/csv.js"></script>
+
+
+
 <div data-ng-if="salesMode == 'add'">
 <div class="row" data-ng-controller="salesCtrl">
     
@@ -23,11 +28,18 @@
                   <option value="11">Nov</option>  
                   <option value="12">Dec</option>  
                 </select>
-                </div>
+                    
+                    
+                </div>           
+                            
+                
             </div>
-            <br>
+            <br>      
             
-            <table class="table table-hover table-bordered table-condensed">
+            
+        
+            <div id="dvData">
+                 <table class="table table-hover table-bordered table-condensed">
                     <thead>
                     <tr>
                         <th scope="col"  class="info">SalesID</th>
@@ -58,13 +70,22 @@
                             <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
                             <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
                         </tr>
-                    </tbody>
-                
+                    </tbody>             
 
-            </table>
-            {{msg}}
-            
-            
+                </table>        
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3">
+                <a id ="export" role='button'><button class="btn btn-lg btn-primary">Convert To CSV</button> </a>
+            </div>
+        </div>
+        <br/>
+        
+
+          <!-- <a id ="export" role='button'>Click On This Here Link To Export The Table Data into a CSV File      </a>-->
+           
+           
             
             
             
@@ -155,40 +176,46 @@
             <br>
             
             <table class="table table-hover table-bordered table-condensed">
-                    <thead>
-                    <tr>
-                        <th scope="col"  class="info">SalesID</th>
-                        <th id="itemName" scope="col"  class="info">ItemName</th>
-                        <th id="itemUnitOrder" scope="col" class="info">ItemUnitOrder</th>
-                        <th id="clientName" scope="col" class="info">ClientName</th>
-                        <th id="clientContact" scope="col"  class="info">ClientContact</th>
-                        <th id="userID" scope="col"  class="info">UserID</th>
-                        <th id="salesDate" scope="col" class="info">SalesDate</th>
-                        <th id="totalPrice" scope="col" class="info">TotalPrice</th>
-                        <th id="edit" scope="col" class="info">Edit</th>
-                        <th id="del" scope="col" class="info">Delete</th>
+                <thead>
+                <tr>
+                    <th scope="col"  class="info">SalesID</th>
+                    <th id="itemName" scope="col"  class="info">ItemName</th>
+                    <th id="itemUnitOrder" scope="col" class="info">ItemUnitOrder</th>
+                    <th id="clientName" scope="col" class="info">ClientName</th>
+                    <th id="clientContact" scope="col"  class="info">ClientContact</th>
+                    <th id="userID" scope="col"  class="info">UserID</th>
+                    <th id="salesDate" scope="col" class="info">SalesDate</th>
+                    <th id="totalPrice" scope="col" class="info">TotalPrice</th>
+                    <th id="edit" scope="col" class="info">Edit</th>
+                    <th id="del" scope="col" class="info">Delete</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter | filter: selectedMonthFilter">
+
+                        <td>{{sales.SalesID}}</td>
+                        <td>{{sales.ItemName}}</td>
+                        <td>{{sales.ItemUnitsOrder}}</td>		
+                        <td>{{sales.ClientName}}</td>
+                        <td>{{sales.ClientContact}}</td>
+                        <td>{{sales.UserID}}</td>
+                        <td>{{sales.SalesDate}}</td>
+                        <td>{{sales.TotalPrice}}</td>
+
+                        <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
+                        <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
                     </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter | filter: selectedMonthFilter">
- 
-                            <td>{{sales.SalesID}}</td>
-                            <td>{{sales.ItemName}}</td>
-                            <td>{{sales.ItemUnitsOrder}}</td>		
-                            <td>{{sales.ClientName}}</td>
-                            <td>{{sales.ClientContact}}</td>
-                            <td>{{sales.UserID}}</td>
-                            <td>{{sales.SalesDate}}</td>
-                            <td>{{sales.TotalPrice}}</td>
-
-                            <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
-                            <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
-                        </tr>
-                    </tbody>
-                
+                </tbody>                
 
             </table>
+        
+        
+            <div class='button'>
+                <a href="#" id ="export" role='button'>Click On This Here Link To Export The Table Data into a CSV File
+                </a>
+            </div>
+            
             {{msg}}
             
             
