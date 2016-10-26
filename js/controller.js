@@ -337,10 +337,8 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
         .then (
         function(response) {
             $scope.salesData = response.data;
-            console.log(response.data);
             $scope.currentID = $scope.salesData.length;
 
-            
         },
         function(response) {
         // error handling routine
@@ -476,17 +474,30 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
    
    $scope.callLineChart = function(item){
        Chart.defaults.global.responsive = true;
+       var datasets=[];
+       function getRandomColor() {
+           var letters = '0123456789ABCDEF'.split('');
+           var color = '#';
+           for (var i = 0; i < 6; i++ ) {
+               color += letters[Math.floor(Math.random() * 16)];
+           }
+           return color;
+       }
+       
+       for (var i = 0; i < item.length; i++) {
+          var color = getRandomColor();
+          datasets.push({});
+          datasets[i].labels= item[i].name;
+          datasets[i].fillColor = "rgba(172,194,132,0.4)";
+          datasets[i].strokeColor = color;
+          datasets[i].pointColor = color;
+          datasets[i].pointStrokeColor = color;
+          datasets[i].data= item[i].data;
+       }
+       
         var SalesData = {
-            labels : ["Jan","Feb","Mar","Apr","May","Jun","Aug","Sep","Oct","Nov","Dec"],
-            datasets : [
-            {
-                fillColor : "rgba(172,194,132,0.4)",
-                strokeColor : "#ACC26D",
-                pointColor : "#fff",
-                pointStrokeColor : "#9DB86D",
-                data:item
-            }
-        ]
+            labels : ["Jan","Feb","Mar","Apr","May","Jun","July","Aug","Sep","Oct","Nov","Dec"],
+            datasets 
         }
         var sales = document.getElementById('totalqtyYear').getContext('2d');
         new Chart(sales).Line(SalesData);
