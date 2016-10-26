@@ -83,14 +83,18 @@ app.controller("myCtrl", function ($scope, $http,$state) {
         if (Notification.permission !== "granted")
             Notification.requestPermission();
         else {
-            var notification = new Notification('Low Stock Notification', {
-            icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-            body: message,
-        });
+            for(var i=0;i<message.length;i++)
+            {
+                var diff = 5 - message[i].units;
+                var notification = new Notification('Low Stock Notification', {
+                icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+                body: message[i].itemName + " is below minimum amount of stock " + "for "+ diff + " units" ,
+                });   
+            }
 
-        notification.onclick = function () {
-          $state.go("InvenMan");      
-        };
+            notification.onclick = function () {
+              $state.go("InvenMan");      
+            };
         }
     }
     
@@ -99,14 +103,7 @@ app.controller("myCtrl", function ($scope, $http,$state) {
         .then (
         function(response) {
             $scope.lowStocks = response.data;
-            if($scope.lowStocks.length>1)
-            {
-                $scope.message="More than 1 item is low on stock";
-                $scope.notifyMe($scope.message);
-            }else{
-                $scope.message= $scope.lowStocks[0].itemName + " is low on stock";
-                $scope.notifyMe($scope.message);
-            }
+            $scope.notifyMe($scope.lowStocks);
         },
         function(response) {
         // error handling routine

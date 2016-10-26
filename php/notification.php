@@ -9,7 +9,8 @@
             $outp .= ",";
             }
          
-		    $outp .= '{"itemName":"'  . $rs["ItemName"] . '"}'; 
+		    $outp .= '{"itemName":"'  . $rs["ItemName"] . '",'; 
+            $outp .= '"units":'  . $rs["UnitsAvailable"] . '}';
         }   
 	}
     $outp ='['.$outp.']';
