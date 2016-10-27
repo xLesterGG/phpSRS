@@ -4,7 +4,7 @@
     $outp = "";
 
     while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
-		if ($rs['UnitsAvailable']<= 5) {
+		if ($rs['UnitsAvailable']< 5) {
             if ($outp != "") {
             $outp .= ",";
             }
