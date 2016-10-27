@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 app.controller("myCtrl", function ($scope, $http,$state) {
 	'use strict';
-    
+    $scope.required = true;
+
     $scope.invenMode = 'add';
     $scope.salesMode = 'add';
 	

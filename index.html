@@ -56,32 +56,47 @@
                                 <div class="form-group">
                                     <label for="userID" class="control-label col-md-3 col-sm-3 col-xs-3"> Username  : </label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" class="form-control" data-ng-model="userID" id="userID"/>
+                                        <input type="text" class="form-control" data-ng-model="userID" id="userID" data-ng-required="required" name="uname"/>
+                                        
+                                        <span data-ng-show="registrationForm.uname.$error.required && registrationForm.uname.$touched" class="text-danger"> You must enter a event name</span>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="userPass" class="control-label col-md-3 col-sm-3 col-xs-3">Password:</label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <input type="password" class="form-control" data-ng-model="userPass" id="userPass"/>
+                                        <input type="password" class="form-control" data-ng-required="required" data-ng-model="userPass" minlength="7" name="pw"/>
+                                        
+                                        <span data-ng-show="registrationForm.pw.$error.required && registrationForm.pw.$touched" class="text-danger"> You must enter a password</span>
+                                        
+                                        <span data-ng-show="registrationForm.pw.$error.minlength && registrationForm.pw.$touched"  class="text-danger">Your password has to be at least seven characters</span>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="userPass2" class="control-label col-md-3 col-sm-3 col-xs-3"> Confirm-Password:</label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <input type="password" class="form-control" id="userPass2" data-ng-model="userPass2" data-ng-pattern="userPass"/>
+                                        <input type="password" class="form-control" name="cp" data-ng-model="userPass2" data-ng-pattern="userPass" data-ng-required="required" />
+                                        
+                                        <span data-ng-show="!registrationForm.cp.$error.required && registrationForm.pw.$error.minlength && registrationForm.cp.$touched " class="text-danger">You must make sure your password has the appropriate length</span>
+                                        
+                                        <span data-ng-if="userPass != userPass2 && !registrationForm.pw.$error.required &&
+                                        !registrationForm.pw.$error.minlength &&                  registrationForm.cp.$touched"  class="text-danger"> Your password does not match</span>
+                                        
+                                        <span data-ng-show="registrationForm.cp.$error.required && registrationForm.cp.$touched && (!registrationForm.pw.$error.required) " class="text-danger"> You must confirm your password</span>
                                     </div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="role" class="control-label col-md-3 col-sm-3 col-xs-3"> Account type </label>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
-                                        <select class="form-control" data-ng-change="getCode(acctype)" data-ng-model="acctype">
+                                        <select name="select" class="form-control" data-ng-change="getCode(acctype)" data-ng-model="acctype" required="required">
                                             <option id="role">Admin</option>
                                             <option id="role">Officer</option>
                                             <option id="role">Normal</option>
                                         </select>
+                                        
+                                        <span data-ng-show="registrationForm.select.$error.required && registrationForm.select.$touched" class="text-danger"> You must select a rank</span>
                                     </div>
                                 </div>
                                 
