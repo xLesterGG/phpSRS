@@ -9,7 +9,7 @@
 -->
         <div data-ng-if="invenMode == 'add'">
             <!--admin-->
-            <div data-ng-if="type == 'Admin'">
+            <div data-ng-if="Acc == 'Admin'">
 
             <table class="table table-hover table-bordered table-condensed">
                     <thead>
@@ -46,7 +46,7 @@
             {{msg}}
             </div>
             <!--officer-->
-            <div data-ng-if="type == 'Officer'">
+            <div data-ng-if="Acc == 'Officer'">
 
             <table class="table table-hover table-bordered table-condensed">
                     <thead>
@@ -83,7 +83,7 @@
             {{msg}}
             </div>
             <!-- normal user -->
-            <div data-ng-if="type == 'Normal'">
+            <div data-ng-if="Acc == 'Normal'">
 
             <table class="table table-hover table-bordered table-condensed">
                     <thead>

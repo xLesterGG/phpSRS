@@ -5,9 +5,9 @@
 
 <div data-ng-if="salesMode == 'add'">
 <div class="row" data-ng-controller="salesCtrl">
-    
+
     <!-- Admin Table -->
-    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="type == 'Admin' ">
+    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="Acc == 'Admin' ">
     
             <div class="row">
                 <div class="col-md-2 col-xs-2">
@@ -35,9 +35,7 @@
                 
             </div>
             <br>      
-            
-            
-        
+
             <div id="dvData">
                  <table class="table table-hover table-bordered table-condensed">
                     <thead>
@@ -150,7 +148,7 @@
         </div>
     
     <!-- officer table-->
-    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="type == 'Officer' ">
+    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="Acc == 'Officer' ">
         
             <div class="row">
                 <div class="col-md-2 col-xs-2">
@@ -187,7 +185,7 @@
                     <th id="salesDate" scope="col" class="info">SalesDate</th>
                     <th id="totalPrice" scope="col" class="info">TotalPrice</th>
                     <th id="edit" scope="col" class="info">Edit</th>
-                    <th id="del" scope="col" class="info">Delete</th>
+
                 </tr>
                 </thead>
 
@@ -204,7 +202,7 @@
                         <td>{{sales.TotalPrice}}</td>
 
                         <td headers="edit"><button type="submit" data-ng-click="chngSalesMode(sales.SalesID)" class="btn">Edit</button></td>
-                        <td headers="del"><button type="submit" data-ng-click="removeSales(sales.SalesID)" class="btn">Del</button></td>
+
                     </tr>
                 </tbody>                
 
@@ -284,7 +282,7 @@
     
     
     <!--Normal user -->
-    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="type == 'Normal' ">
+    <div class="col-md-12 col-xs-12 maincontent" data-ng-if="Acc == 'Normal' ">
         <p> normal</p>
             <div class="row">
                 <div class="col-md-2 col-xs-2">
@@ -326,8 +324,8 @@
                     </thead>
 
                     <tbody>
-                        <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter | filter: selectedMonthFilter">
- 
+                        <tr data-ng-repeat="sales in salesData | filter: selectedYearFilter | filter: selectedMonthFilter | filter: IDu">
+                           
                             <td>{{sales.SalesID}}</td>
                             <td>{{sales.ItemName}}</td>
                             <td>{{sales.ItemUnitsOrder}}</td>		

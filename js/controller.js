@@ -2,6 +2,8 @@
 
 var app = angular.module("myApp", ['ui.router']);
 
+
+
 app.directive('yearDrop',function(){
    	function getYears(offset){
         var currentYear = 1990;
@@ -38,7 +40,7 @@ app.directive('yearDrop2',function(){
     }
 });
 
-app.value("acc",'Admin');
+
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!Notification) {
@@ -51,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 app.controller("myCtrl", function ($scope, $http,$state) {
 	'use strict';
+    
+    
     $scope.required = true;
 
     $scope.invenMode = 'add';
@@ -76,6 +80,8 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     
     $scope.rCode = "";
     $scope.codeIsCorrect=false;
+    
+    $scope.temp="";
     
     $scope.IDu = "";
     $scope.Acc = "";
@@ -113,6 +119,7 @@ app.controller("myCtrl", function ($scope, $http,$state) {
 
     
     $scope.adminCheck = function(adminID,adminPW){
+    $scope.stopSession();
     var url = "php/loginCheck.php";
     var data = $.param({adminID:adminID, adminPW:adminPW});
     var config = {
@@ -159,18 +166,69 @@ app.controller("myCtrl", function ($scope, $http,$state) {
             function(response){
                 if (response.data)
                 {
+                    
                     $scope.get = [];
                     $scope.get = response.data;
                     
                     $scope.IDu = $scope.get[0].UserID;
                     $scope.Acc = $scope.get[0].AccountType;
+                    
+                    
+                    $scope.startSession($scope.IDu, $scope.Acc);
                     console.log($scope.get);
+                    console.log($scope.IDu);
+                    console.log($scope.Acc);
                 }
             }, function (response)
             {  
-                alert(response.data);
+                
             });
     };
+    
+    $scope.startSession = function (userID,Acc){
+        var url = "php/session.php";
+        var data = $.param({userID:userID, Acc:Acc});
+        var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+        };
+        
+        $http.post(url,data,config)
+            .then(
+            function(response){
+                if(response.data)
+                {
+                     $scope.temp = response.data;
+                    console.log($scope.temp);
+                }
+            }
+        )
+    
+    };
+    
+    $scope.stopSession = function(){
+        var url = "php/logout.php";
+        var data = null;
+        var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+        };
+        
+        $http.post(url,data,config)
+            .then(
+            function(response){
+                if(response.data)
+                {
+                     $scope.temp = response.data;
+                    console.log($scope.temp);
+                }
+            }
+        )
+    
+    };
+    
     
     $scope.adminRegis = function (userName,password,account){
         if($scope.codeIsCorrect == true){
@@ -204,7 +262,8 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     };
    
     $scope.logout = function(){
-        window.location.href="index.html"
+        window.location.href="index.html";
+        $scope.stopSession();
     }
     
     $scope.checkcode = function(input){
@@ -284,18 +343,18 @@ app.controller("myCtrl", function ($scope, $http,$state) {
     
 });
 
-app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
+app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
     'use strict';
+    
+
+    
     //$scope.sid = 0;
     console.log($scope.sid);
     console.log($stateParams.id);
    /* $scope.sales= [
         {"sID":"1", itemName:"Pills", "itemUnit":"1", "clientName":"????", "clientContact":"123","uID":"1","sDate":"11-11-1111"}
-    ];*/
-    
-    $scope.type = acc;
-    $scope.IDuser = 'Ambrose';
-    
+    ];*/ 
+
     
 
     $scope.selectedMonth="";
@@ -330,6 +389,8 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
         $scope.selectedYear=a;
     }
     
+    
+    
     $scope.getSales = function(){
         $http.get('php/phpapi.php/sales')
         .then (
@@ -343,6 +404,45 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
         });    
     }
     $scope.getSales();
+    
+    $scope.accGet = function(){
+    var url = "php/getInfo.php";
+    var data = null;
+    var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+    };
+    
+    $http.post(url,data,config)
+        .then(
+            function(response){
+                if (response.data)
+                {
+                    
+                    $scope.get = [];
+                    $scope.get = response.data;
+                    
+                    $scope.IDu = $scope.get[0].UserID;
+                    $scope.Acc = $scope.get[0].AccountType;
+
+                    
+                    $scope.updatetemp1 = $scope.IDu;
+                    $scope.updatetemp2 = $scope.Acc;
+                    
+                    console.log($scope.IDu);
+                    console.log($scope.Acc);
+                }
+            }, function (response)
+            {  
+                
+            });
+    };
+    
+    $scope.accGet();
+    
+
+    
     
     
     $scope.getInven = function(){
@@ -561,12 +661,13 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams,acc){
       
   }   
   
+
+  
 });
 
-app.controller("invenCtrl",function($scope,$http,$window, acc){
+app.controller("invenCtrl",function($scope,$http,$window){
     
-    $scope.type = acc;
-    console.log($scope.type);
+
     
     'use strict';
     $scope.getInven = function(){
@@ -582,6 +683,45 @@ app.controller("invenCtrl",function($scope,$http,$window, acc){
         });    
     }
     $scope.getInven();
+    
+    $scope.accGet = function(){
+    var url = "php/getInfo.php";
+    var data = null;
+    var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+    };
+    
+    $http.post(url,data,config)
+        .then(
+            function(response){
+                if (response.data)
+                {
+                    
+                    $scope.get = [];
+                    $scope.get = response.data;
+                    
+                    $scope.IDu = $scope.get[0].UserID;
+                    $scope.Acc = $scope.get[0].AccountType;
+
+                    
+                    $scope.updatetemp1 = $scope.IDu;
+                    $scope.updatetemp2 = $scope.Acc;
+                    
+                    //console.log($scope.get);
+                    console.log($scope.IDu);
+                    console.log($scope.Acc);
+                }
+            }, function (response)
+            {  
+                
+            });
+    };
+    
+    $scope.accGet();
+    
+    
     
     $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
         var url = "php/invenAdd.php";

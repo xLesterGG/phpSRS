@@ -47,6 +47,11 @@ INSERT INTO RegistrationCodes(CodeID,Code,AccountType) VALUES ("1","aaa","admin"
 INSERT INTO RegistrationCodes(CodeID,Code,AccountType) VALUES ("2","bbb","officer");
 INSERT INTO RegistrationCodes(CodeID,Code,AccountType) VALUES ("3","ccc","normal");
 
+CREATE TABLE Session(
+	UserID VARCHAR(30) NOT NULL,
+	AccountType VARCHAR(15) NOT NULL
+)
+
 
 
 
