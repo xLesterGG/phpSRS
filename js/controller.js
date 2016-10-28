@@ -185,6 +185,41 @@ app.controller("myCtrl", function ($scope, $http,$state) {
             });
     };
     
+        $scope.accGet = function(){
+    var url = "php/getInfo.php";
+    var data = null;
+    var config = {
+        headers:{
+            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
+        }
+    };
+    
+    $http.post(url,data,config)
+        .then(
+            function(response){
+                if (response.data)
+                {
+                    
+                    $scope.get = [];
+                    $scope.get = response.data;
+                    
+                    $scope.IDu = $scope.get[0].UserID;
+                    $scope.Acc = $scope.get[0].AccountType;
+
+                    
+                    console.log(response.data);
+                    
+                    console.log($scope.IDu);
+                    console.log($scope.Acc);
+                }
+            }, function (response)
+            {  
+                
+            });
+    };
+    
+    $scope.accGet();
+    
     $scope.startSession = function (userID,Acc){
         var url = "php/session.php";
         var data = $.param({userID:userID, Acc:Acc});
@@ -249,10 +284,14 @@ app.controller("myCtrl", function ($scope, $http,$state) {
         .then(
 				function (response) {
 					$scope.msg3 = response.data;
+                    $window.location.reload();
+
 
 				},
 				function (response) {
 					$scope.msg3 = response.data;
+                           $window.location.reload();
+
 				}
 			); 
         } else{
@@ -405,41 +444,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
     }
     $scope.getSales();
     
-    $scope.accGet = function(){
-    var url = "php/getInfo.php";
-    var data = null;
-    var config = {
-        headers:{
-            'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
-        }
-    };
-    
-    $http.post(url,data,config)
-        .then(
-            function(response){
-                if (response.data)
-                {
-                    
-                    $scope.get = [];
-                    $scope.get = response.data;
-                    
-                    $scope.IDu = $scope.get[0].UserID;
-                    $scope.Acc = $scope.get[0].AccountType;
 
-                    
-                    $scope.updatetemp1 = $scope.IDu;
-                    $scope.updatetemp2 = $scope.Acc;
-                    
-                    console.log($scope.IDu);
-                    console.log($scope.Acc);
-                }
-            }, function (response)
-            {  
-                
-            });
-    };
-    
-    $scope.accGet();
     
 
     
@@ -463,7 +468,6 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
         console.log(itemName);
                 console.log(itemUnit);
 
-
         $scope.currentID+=1;
         var data = $.param({
 			SalesID : $scope.currentID,
@@ -471,7 +475,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
 			ItemUnitsOrder: itemUnit,
 			ClientName: clientName,
 			ClientContact: clientContact,
-            UserID:'Lester',
+            UserID:$scope.IDu,
             SalesDate:sDate,
             TotalPrice:tPrice
 		});
@@ -495,7 +499,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
             
         });
 
-        $window.location.reload();
+       // $window.location.reload();
    };
     
    $scope.getSalesQty = function(year,month){
