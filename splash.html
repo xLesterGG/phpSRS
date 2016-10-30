@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+
+<head> 
+
+    <title>Splash page</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/splash.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+</head>
+<div class="container" data-ng-controller="myCtrl">
+
+    <body>
+            <header id="top" class="header">
+                <div class="text-vertical-center">
+                    <h1>Hello , {{IDu}}</h1>
+                    <h3>We hope you have a great day at People's Health Pharmacy</h3>
+                    <br>
+                 <!--   <a href="#about" class="btn btn-dark btn-lg">Find Out More</a>-->
+                </div>
+            </header>  
+
+
+
+    </body>
+</div>
+
+<script>setTimeout(function(){window.location.href='home.html'},5000);</script>
+<script src="js/angular.min.js"></script>
+<script src="js/abc.js"></script>
+
+</html>

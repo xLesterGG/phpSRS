@@ -2,9 +2,9 @@
 <script src="js/csv.js"></script>
 
 
-
-<div data-ng-if="salesMode == 'add'">
-<div class="row" data-ng-controller="salesCtrl">
+<div data-ng-init="checkInven()"></div> 
+<div data-ng-if="salesMode == 'add'" >
+<div class="row" data-ng-controller="salesCtrl" >
 
     <!-- Admin Table -->
     <div class="col-md-12 col-xs-12 maincontent" data-ng-if="Acc == 'Admin' ">

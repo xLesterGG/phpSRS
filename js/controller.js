@@ -142,7 +142,7 @@ app.controller("myCtrl", function ($scope, $http,$state) {
                         $scope.IDu = $scope.admin;
                         console.log($scope.IDu);
                         $scope.adminGet(adminID);
-                        window.location.href="home.html";   
+                        window.location.href="splash.html";   
                         
                         }
                    // console.log($scope.adminProceed);
@@ -207,7 +207,7 @@ app.controller("myCtrl", function ($scope, $http,$state) {
                     $scope.Acc = $scope.get[0].AccountType;
 
                     
-                    console.log(response.data);
+                    //console.log(response.data);
                     
                     console.log($scope.IDu);
                     console.log($scope.Acc);
@@ -842,7 +842,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         
 		.state('/', {
 			url: '/',
-			templateUrl: "homecontent.html"
+			templateUrl: "sales.html"
 		
 		})        
         
