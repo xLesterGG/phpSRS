@@ -64,7 +64,10 @@
                             <div class="panel-heading">Sales Trend In Year {{selectedYear2}}</div>
                             <div class="panel-body">
                                 <div class="canvas-wrapper">
-                                    <canvas class="chart" id="totalqtyYear"></canvas>
+                                    <div class="row">
+                                        <div class="col-md-10"><canvas class="chart chart-line" id="totalqtyYear"></canvas></div>
+                                        <div id="legend" class="chart-legend col-md-2"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

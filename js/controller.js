@@ -587,13 +587,14 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
        }
        
        for (var i = 0; i < item.length; i++) {
-          var color = getRandomColor();
+          var randcolor = getRandomColor();
           datasets.push({});
-          datasets[i].labels= item[i].name;
+          datasets[i].label= item[i].name;
+          datasets[i].color=randcolor;
           datasets[i].fillColor = "rgba(172,194,132,0.4)";
-          datasets[i].strokeColor = color;
-          datasets[i].pointColor = color;
-          datasets[i].pointStrokeColor = color;
+          datasets[i].strokeColor = randcolor;
+          datasets[i].pointColor = randcolor;
+          datasets[i].pointStrokeColor = randcolor;
           datasets[i].data= item[i].data;
        }
        
@@ -602,7 +603,8 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
             datasets 
         }
         var sales = document.getElementById('totalqtyYear').getContext('2d');
-        new Chart(sales).Line(SalesData);
+        var myChart = new Chart(sales).Line(SalesData);
+        document.getElementById('legend').innerHTML = myChart.generateLegend();
    }
     
     

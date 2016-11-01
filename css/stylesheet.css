@@ -17,6 +17,9 @@ body {
 
 }
 
+.panel-body{
+   
+}
 
 /*login things*/
 #login{
@@ -105,7 +108,17 @@ form[role=login] > div {
     background-size: cover;
 }
 
-	
+.chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.chart-legend ul {
+  list-style: none;
+}
+
 	
 	
 	
