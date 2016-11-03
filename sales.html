@@ -3,9 +3,10 @@
 
 
 <div data-ng-init="checkInven()"></div> 
-<div data-ng-if="salesMode == 'add'" >
-<div class="row" data-ng-controller="salesCtrl" >
 
+<div class="row">
+<div class="col-md-12 col-xs-12 maincontent" data-ng-controller="salesCtrl">
+<div data-ng-if="salesMode == 'add'" >
     <!-- Admin Table -->
     <div class="col-md-12 col-xs-12 maincontent" data-ng-if="Acc == 'Admin' ">
             <div class="row">
@@ -94,7 +95,7 @@
                 <div class="form-group">
                     <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>  -->
+                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>-->  
                         <select class="form-control" data-ng-model="itemName">
                             <option data-ng-repeat="inven in inventoryData" value="{{inven.ItemName}}"  id="item">{{inven.ItemName}}</option>               
                         </select>                        
@@ -104,28 +105,33 @@
                 <div class="form-group">     
                     <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder"/>    
+                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder" data-ng-required="required" name="uorder"/>
+                        <span data-ng-show="salesAddForm.uorder.$error.required && salesAddForm.uorder.$touched" class="text-danger">You must enter an item unit order</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientName" id="cName"/>    
+                        <input type="text" class="form-control" data-ng-model="clientName" id="cName" data-ng-required="required" name="cname"/>
+                        <span data-ng-show="salesAddForm.cname.$error.required && salesAddForm.cname.$touched" class="text-danger">You must enter a client name</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientContact" id="cContact"/>    
+                        <input type="tel" class="form-control" data-ng-model="clientContact" id="cContact" data-ng-required="required" name="cc" pattern="((\+|00)?[1-9]{2}|0)[1-9]( ?[0-9]){8}" placeholder="+(00)9999 9999"/>
+                        <span data-ng-show="salesAddForm.cc.$error.required && salesAddForm.cc.$touched" class="text-danger">You must enter a client number</span>
+                        <span data-ng-show="salesAddForm.cc.$error.pattern && salesAddForm.cc.$touched" class="text-danger">You must enter a contact number</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                      <label for="datepicker" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
                      <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" />
+                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" data-ng-required="required" name="sd" />
+                         <span data-ng-show="salesAddForm.sd.$error.required && salesAddForm.sd.$touched" class="text-danger">You must enter a date</span>
                      </div>
                      <script type="text/javascript">
                          $(function(){
@@ -135,6 +141,8 @@
                      });
                      </script>
                 </div>
+                    
+            
                     
                 <div class="form-group">
                     <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
@@ -218,7 +226,7 @@
                 <div class="form-group">
                     <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>  -->
+                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>-->  
                         <select class="form-control" data-ng-model="itemName">
                             <option data-ng-repeat="inven in inventoryData" value="{{inven.ItemName}}"  id="item">{{inven.ItemName}}</option>               
                         </select>                        
@@ -228,28 +236,33 @@
                 <div class="form-group">     
                     <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder"/>    
+                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder" data-ng-required="required" name="uorder"/>
+                        <span data-ng-show="salesAddForm.uorder.$error.required && salesAddForm.uorder.$touched" class="text-danger">You must enter an item unit order</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientName" id="cName"/>    
+                        <input type="text" class="form-control" data-ng-model="clientName" id="cName" data-ng-required="required" name="cname"/>
+                        <span data-ng-show="salesAddForm.cname.$error.required && salesAddForm.cname.$touched" class="text-danger">You must enter a client name</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientContact" id="cContact"/>    
+                        <input type="tel" class="form-control" data-ng-model="clientContact" id="cContact" data-ng-required="required" name="cc" pattern="((\+|00)?[1-9]{2}|0)[1-9]( ?[0-9]){8}" placeholder="+(00)9999 9999"/>
+                        <span data-ng-show="salesAddForm.cc.$error.required && salesAddForm.cc.$touched" class="text-danger">You must enter a client number</span>
+                        <span data-ng-show="salesAddForm.cc.$error.pattern && salesAddForm.cc.$touched" class="text-danger">You must enter a contact number</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                      <label for="datepicker" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
                      <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" />
+                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" data-ng-required="required" name="sd" />
+                         <span data-ng-show="salesAddForm.sd.$error.required && salesAddForm.sd.$touched" class="text-danger">You must enter a date</span>
                      </div>
                      <script type="text/javascript">
                          $(function(){
@@ -259,6 +272,7 @@
                      });
                      </script>
                 </div>
+                
                     
                 <div class="form-group">
                     <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
@@ -343,7 +357,7 @@
                 <div class="form-group">
                     <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>  -->
+                       <!-- <input type="text" class="form-control" data-ng-model="itemName" id="item"/>--> 
                         <select class="form-control" data-ng-model="itemName">
                             <option data-ng-repeat="inven in inventoryData" value="{{inven.ItemName}}"  id="item">{{inven.ItemName}}</option>               
                         </select>                        
@@ -353,28 +367,33 @@
                 <div class="form-group">     
                     <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder"/>    
+                        <input type="number" class="form-control" data-ng-model="itemUnit" id="UnitOrder" data-ng-required="required" name="uorder"/>
+                        <span data-ng-show="salesAddForm.uorder.$error.required && salesAddForm.uorder.$touched" class="text-danger">You must enter an item unit order</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientName" id="cName"/>    
+                        <input type="text" class="form-control" data-ng-model="clientName" id="cName" data-ng-required="required" name="cname"/>
+                        <span data-ng-show="salesAddForm.cname.$error.required && salesAddForm.cname.$touched" class="text-danger">You must enter a client name</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientContact" id="cContact"/>    
+                        <input type="tel" class="form-control" data-ng-model="clientContact" id="cContact" data-ng-required="required" name="cc" pattern="((\+|00)?[1-9]{2}|0)[1-9]( ?[0-9]){8}" placeholder="+(00)9999 9999"/>
+                        <span data-ng-show="salesAddForm.cc.$error.required && salesAddForm.cc.$touched" class="text-danger">You must enter a client number</span>
+                        <span data-ng-show="salesAddForm.cc.$error.pattern && salesAddForm.cc.$touched" class="text-danger">You must enter a contact number</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                      <label for="datepicker" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
                      <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" />
+                        <input type='text' class="form-control" data-ng-model="sDate" id="datepicker" data-ng-required="required" name="sd" />
+                         <span data-ng-show="salesAddForm.sd.$error.required && salesAddForm.sd.$touched" class="text-danger">You must enter a date</span>
                      </div>
                      <script type="text/javascript">
                          $(function(){
@@ -384,6 +403,7 @@
                      });
                      </script>
                 </div>
+                
                     
                 <div class="form-group">
                     <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
@@ -395,8 +415,12 @@
         </div>
         
         
-        <!--sales edit-->
-        <div data-ng-if="salesMode == 'edit'" data-ng-repeat="sales in salesData|filter:{SalesID:sid}">
+        
+    </div>
+
+    
+    <!--sales edit-->
+<div data-ng-if="salesMode == 'edit'" data-ng-repeat="sales in salesData|filter:{SalesID:sid}">
             <form name="salesEditForm" class="form-horizontal" novalidate
                       ="novalidate" data-ng-init="LoadData(sales.ItemName,sales.ItemUnitsOrder,sales.ClientName,sales.ClientContact,sales.SalesDate)">
             <fieldset>
@@ -419,28 +443,33 @@
                 <div class="form-group">     
                     <label for="UnitOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> Item UnitOrder: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="number" class="form-control"  string-to-number data-ng-model="itemUnit2" id="UnitOrder"/>    
+                        <input type="number" class="form-control"  string-to-number data-ng-model="itemUnit2" id="UnitOrder" data-ng-required="re   quired" name="ueditorder"/>
+                        <span data-ng-show="salesEditForm.ueditorder.$error.required && salesEditForm.ueditorder.$touched" class="text-danger">You must enter an item unit order</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cName" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Name: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientName2" id="cName"/>    
+                        <input type="text" class="form-control" data-ng-model="clientName2" id="cName" data-ng-required="required" name="cnameedit"/>
+                        <span data-ng-show="salesEditForm.cnameedit.$error.required && salesEditForm.cnameedit.$touched" class="text-danger">You must enter a client name</span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="cContact" class="control-label col-md-2 col-sm-2 col-xs-3"> Client Contact: </label>
                     <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type="text" class="form-control" data-ng-model="clientContact2" id="cContact"/>    
+                        <input type="text" class="form-control" data-ng-model="clientContact2" id="cContact" data-ng-required="required" name="ccedit" pattern="((\+|00)?[1-9]{2}|0)[1-9]( ?[0-9]){8}" placeholder="+(00)9999 9999"/>
+                        <span data-ng-show="salesEditForm.ccedit.$error.required && salesEditForm.ccedit.$touched" class="text-danger">You must enter a client number</span>
+                        <span data-ng-show="salesEditForm.ccedit.$error.pattern && salesEditForm.ccedit.$touched" class="text-danger">You must enter a contact number</span>
                     </div>
                 </div>
                 
                 <div class="form-group">
                      <label for="datepicker2" class="control-label col-md-2 col-sm-2 col-xs-3"> Sales Date: </label>
                      <div class="col-md-3 col-sm-3 col-xs-8">
-                        <input type='text' class="form-control" data-ng-model="sDate2" id="datepicker2" />
+                        <input type='text' class="form-control" data-ng-model="sDate2" id="datepicker2" data-ng-required="required" name="sdedit"/>
+                         <span data-ng-show="salesEditForm.sdedit.$error.required && salesEditForm.sdedit.$touched" class="text-danger">You must enter a date</span>
                      </div>
                      <script type="text/javascript">
                          $(function(){
@@ -449,6 +478,10 @@
                          });
                      });
                      </script>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tPrice" class="control-label col-md-2 col-sm-2 col-xs-3"> Total Price: {{sales.TotalPrice}} </label>
                 </div>
             
             <div class="form-group">
@@ -462,8 +495,8 @@
 
             </fieldset>       
             </form>
-        </div>
-    </div>
+        </div>  
+</div>
 </div>    
 
 
