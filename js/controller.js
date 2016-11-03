@@ -466,7 +466,7 @@ app.controller("salesCtrl",function($scope,$http,$window,$stateParams){
     $scope.addSales = function (itemName,itemUnit,clientName,clientContact,sDate, tPrice) {
        var url = "php/salesAdd.php"
         console.log(itemName);
-                console.log(itemUnit);
+        console.log(itemUnit);
 
         $scope.currentID+=1;
         var data = $.param({
@@ -729,9 +729,9 @@ app.controller("invenCtrl",function($scope,$http,$window){
     
     
     
-    $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder) {
+    $scope.addInven = function (itemName,itemAmount,itemDescription,itemPrice,UnitsOrder,itemStatus) {
         var url = "php/invenAdd.php";
-        var data = $.param({itemName:itemName, itemAmount:itemAmount,itemDescription:itemDescription,itemPrice:itemPrice,UnitsOrder:UnitsOrder});
+        var data = $.param({itemName:itemName, itemAmount:itemAmount,itemDescription:itemDescription,itemPrice:itemPrice,UnitsOrder:UnitsOrder,itemStatus:itemStatus});
         var config = {
         headers:{
             'Content-Type':'application/x-www-form-urlencoded;charset=utf-8;'
@@ -773,20 +773,22 @@ app.controller("invenCtrl",function($scope,$http,$window){
        $window.location.reload();
    };
     
-    $scope.LoadData = function(idesc,iamount,iprice,uorder){
+    $scope.LoadData = function(idesc,iamount,iprice,uorder,istatus){
       $scope.itemEditDesc=idesc;
       $scope.itemEditAmount=parseInt(iamount);
       $scope.itemEditPrice=parseInt(iprice);
       $scope.itemEditOrder=parseInt(uorder);
+      $scope.itemEditStatus=istatus;
   }
     
-    $scope.manageInven = function(desc,amount,price,unitorder){
+    $scope.manageInven = function(desc,amount,price,unitorder,status){
       var url = "php/invenManage.php";
       var data = $.param({
           dsc : desc,
           amn : amount,
           prc : price,
           uio : unitorder,
+          ist : status,
           iID : $scope.iid
       });
       

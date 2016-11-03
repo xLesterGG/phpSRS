@@ -19,6 +19,7 @@
                         <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
                         <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
                         <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+                        <th id="UnitsOrder" scope="col"  class="info">ItemStatus</th>
                         <th id="edit" scope="col" class="info">Edit</th>
                         <th id="del" scope="col" class="info">Delete</th>
                     </tr>
@@ -32,6 +33,7 @@
                         <td>{{inven.ItemDescription}}</td>
                         <td>{{inven.ItemPrice}}</td>
                         <td>{{inven.UnitsOrder}}</td>
+                        <td>{{inven.ItemStatus}}</td>
                         
                         <!--<td data-ng-bind="inven.ItemName" headers="itemName">1</td>
                         <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
@@ -56,6 +58,7 @@
                         <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
                         <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
                         <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+                        <th id="UnitsOrder" scope="col"  class="info">ItemStatus</th>
                         <th id="edit" scope="col" class="info">Edit</th>
 
                     </tr>
@@ -69,6 +72,7 @@
                         <td>{{inven.ItemDescription}}</td>
                         <td>{{inven.ItemPrice}}</td>
                         <td>{{inven.UnitsOrder}}</td>
+                        <td>{{inven.ItemStatus}}</td>
                         
                         <!--<td data-ng-bind="inven.ItemName" headers="itemName">1</td>
                         <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
@@ -93,6 +97,7 @@
                         <th id="itemDescrp" scope="col" class="info">ItemDescription</th>
                         <th id="itemPrice" scope="col"  class="info">ItemPrice</th>
                         <th id="UnitsOrder" scope="col"  class="info">UnitsOrder</th>
+                        <th id="UnitsOrder" scope="col"  class="info">ItemStatus</th>
 
                     </tr>
                     </thead>
@@ -105,6 +110,7 @@
                         <td>{{inven.ItemDescription}}</td>
                         <td>{{inven.ItemPrice}}</td>
                         <td>{{inven.UnitsOrder}}</td>
+                        <td>{{inven.ItemStatus}}</td>
                         
                         <!--<td data-ng-bind="inven.ItemName" headers="itemName">1</td>
                         <td data-ng-bind="inven.UnitsAvailable" headers="itemAmount">2</td>
@@ -119,42 +125,60 @@
             </div>
             
             <form name="invenAddForm" class="form-horizontal" novalidate
-                      ="novalidate" data-ng-submit="addInven(itemName,itemAmount,itemDescription,itemPrice,UnitsOrder)" >
+                      ="novalidate" data-ng-submit="addInven(itemName,itemAmount,itemDescription,itemPrice,UnitsOrder,itemStatus)" >
             <fieldset>
             <legend>Insert New Stock:</legend>
 
             <div class="form-group">
                 <label for="item" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Name: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="text" class="form-control" data-ng-model="itemName" id="item"/>    
+                    <input type="text" class="form-control" data-ng-model="itemName" id="item" data-ng-required="required" name="iname"/>
+                    <span data-ng-show="invenAddForm.iname.$error.required && invenAddForm.iname.$touched" class="text-danger">You must enter an item name</span>
                 </div>
             </div>
 
             <div class="form-group">     
                 <label for="iAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="itemAmount" id="iAmount"/>    
+                    <input type="number" class="form-control" data-ng-model="itemAmount" id="iAmount" data-ng-required="required" name="iamount"/>
+                    <span data-ng-show="invenAddForm.iamount.$error.required && invenAddForm.iamount.$touched" class="text-danger">You must enter an item amount</span>
+                    
                 </div>
             </div>
                 
             <div class="form-group">
                 <label for="itemdes" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Description: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="text" class="form-control" data-ng-model="itemDescription" id="itemdes"/>    
+                    <input type="text" class="form-control" data-ng-model="itemDescription" id="itemdes" data-ng-required="required" name="idesc"/>
+                    <span data-ng-show="invenAddForm.idesc.$error.required && invenAddForm.idesc.$touched" class="text-danger">You must enter an item description</span>
                 </div>
             </div>
             
             <div class="form-group">     
                 <label for="iprice" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Price: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="itemPrice" id="iprice"/>    
+                    <input type="number" class="form-control" data-ng-model="itemPrice" id="iprice" data-ng-required="required" name="iprice" />
+                    <span data-ng-show="invenAddForm.iprice.$error.required && invenAddForm.iprice.$touched" class="text-danger">You must enter an item price</span>
+                    
                 </div>
             </div>
                 
             <div class="form-group">     
                 <label for="uo" class="control-label col-md-2 col-sm-2 col-xs-3"> Units Order: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" data-ng-model="UnitsOrder" id="uo"/>    
+                    <input type="number" class="form-control" data-ng-model="UnitsOrder" id="uo" data-ng-required="required" name="uorder"/>
+                    <span data-ng-show="invenAddForm.uorder.$error.required && invenAddForm.uorder.$touched" class="text-danger">You must enter an unit order</span>
+                    
+                </div>
+            </div>
+                
+            <div class="form-group">
+                <label for="itemstatus" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Status: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <select class="form-control" data-ng-model="itemStatus" data-ng-required="required" name="iStatus">
+                            <option value="active" id="itemStat">Active</option>
+                        <span data-ng-show="invenAddForm.select.$error.required && invenAddForm.select.$touched" class="text-danger">You must select a value</span>
+                    </select>    
                 </div>
             </div>
                 
@@ -170,7 +194,7 @@
         
         <div data-ng-if="invenMode == 'edit'" data-ng-repeat = "inven in inventoryData|filter:{ItemName:iid}">
             <form name="invenEditForm" class="form-horizontal" novalidate
-                      ="novalidate" data-ng-init="LoadData(inven.ItemDescription,inven.UnitsAvailable,inven.ItemPrice,inven.UnitsOrder)">
+                      ="novalidate" data-ng-init="LoadData(inven.ItemDescription,inven.UnitsAvailable,inven.ItemPrice,inven.UnitsOrder,inven.ItemStatus)">
             <fieldset>
             <legend>Edit Stock:</legend>
             
@@ -182,34 +206,50 @@
             <div class="form-group">     
                 <label for="iDescrp" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Description: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="text" class="form-control" data-ng-model="itemEditDesc" id="itemdes" />    
+                    <input type="text" class="form-control" data-ng-model="itemEditDesc" id="itemdes" data-ng-required="required" name="ieditdesc"/>
+                    <span data-ng-show="invenEditForm.ieditdesc.$error.required && invenEditForm.ieditdesc.$touched" class="text-danger">You must enter an item description</span>
                 </div>
             </div>
                 
             <div class="form-group">     
                 <label for="itemEditAmount" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Amount: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" string-to-number data-ng-model="itemEditAmount" id="iAmount"/>    
+                    <input type="number" class="form-control" string-to-number data-ng-model="itemEditAmount" id="iAmount" data-ng-required="required" name="ieditamount"/>
+                    <span data-ng-show="invenEditForm.ieditamount.$error.required && invenEditForm.ieditamount.$touched" class="text-danger">You must enter an item amount</span>
+                    
                 </div>
             </div>
             
             <div class="form-group">     
                 <label for="itemEditPrice" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Price: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" string-to-number data-ng-model="itemEditPrice" id="iPrice"/>    
+                    <input type="number" class="form-control" string-to-number data-ng-model="itemEditPrice" id="iPrice" data-ng-required="required" name="ieditprice"/>
+                    <span data-ng-show="invenEditForm.ieditprice.$error.required && invenEditForm.ieditprice.$touched" class="text-danger">You must enter an item price</span>
                 </div>
             </div>
                 
             <div class="form-group">     
                 <label for="itemEditOrder" class="control-label col-md-2 col-sm-2 col-xs-3"> UnitsOrder: </label>
                 <div class="col-md-3 col-sm-3 col-xs-8">
-                    <input type="number" class="form-control" string-to-number data-ng-model="itemEditOrder" id="uo"/>    
+                    <input type="number" class="form-control" string-to-number data-ng-model="itemEditOrder" id="uo" data-ng-required="required" name="ieditorder"/>
+                    <span data-ng-show="invenEditForm.ieditorder.$error.required && invenEditForm.ieditorder.$touched" class="text-danger">You must enter an unit order</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="itemsEditStatus" class="control-label col-md-2 col-sm-2 col-xs-3"> Item Status: </label>
+                <div class="col-md-3 col-sm-3 col-xs-8">
+                    <select class="form-control" data-ng-model="itemEditStatus" data-ng-required="required">
+                            <option value="active"  id="itemStat">Active</option>
+                            <option value="inactive" id="itemStat">Inactive</option>
+                        <span data-ng-show="invenEditForm.select.$error.required && invenEditForm.select.$touched" class="text-danger">You must select a value</span>
+                    </select>    
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-sm-offset-2 col-xs-offset-3 col-md-10 col-sm-10 col-xs-9">
-                    <button type="submit" class="btn btn-lg btn-primary" data-ng-click="manageInven(itemEditDesc,itemEditAmount,itemEditPrice,itemEditOrder)">Insert</button>
+                    <button type="submit" class="btn btn-lg btn-primary" data-ng-click="manageInven(itemEditDesc,itemEditAmount,itemEditPrice,itemEditOrder,itemEditStatus)">Insert</button>
                 </div>
            </div>
                 {{msg2}}

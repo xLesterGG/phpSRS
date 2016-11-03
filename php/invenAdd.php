@@ -29,6 +29,11 @@
     {
         $UnitsOrder =  $_POST['UnitsOrder'];    
     }
+    
+    if(isset($_POST['itemStatus']))
+    {
+        $itemStatus = $_POST['itemStatus'];
+    }
    
     while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
 		if ($itemName == $rs['ItemName']) {
@@ -41,7 +46,7 @@
         
 	}
     
-    $sql = "INSERT INTO inventory(ItemName, UnitsAvailable, ItemDescription,ItemPrice,UnitsOrder) VALUES('". $itemName ."', " . $itemAmount . ", '". $itemDescription ."', ". $itemPrice .",". $UnitsOrder .");";
+    $sql = "INSERT INTO inventory(ItemName, UnitsAvailable, ItemDescription,ItemPrice,UnitsOrder,ItemStatus) VALUES('". $itemName ."', " . $itemAmount . ", '". $itemDescription ."', ". $itemPrice .",". $UnitsOrder .", '". $itemStatus ."');";
             
     if($conn->query($sql)==true)
     {

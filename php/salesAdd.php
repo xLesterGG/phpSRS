@@ -17,16 +17,27 @@
 		
        # $sql = "INSERT INTO Activities(SalesID, ItemName,ItemUnitsOrder,ClientName,ClientContact,UserID,SalesDate) VALUES(".$SalesID .",'" .$ItemName ."','" .$ItemUnitsOrder ."','" .$ClientName ."','" .$ClientContact ."','" .$UserID ."','" .$SalesDate ."','" .$etime ."');";
 	
-		
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-        } else {
+               
+            echo "New record created successfully"; 
+        } 
+            else
+        {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         
         
-        $result = $conn->query("SELECT * FROM inventory;");
+        
+        $result = $conn->query("SELECT * FROM inventory ;");
         while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
+            
+            if ($rs['ItemStatus'] == "active"){
+                echo "New record inserted successfully";
+            }
+            else{
+                echo "Error: Cannot be sold. Item is inactive" . $conn-error;
+            }
+            
             if ($ItemName == $rs['ItemName']) {
                 $newAvailable = $rs['UnitsAvailable'] - $ItemUnitsOrder;
                 $newUnitsOrder = $rs['UnitsOrder'] + $ItemUnitsOrder;
